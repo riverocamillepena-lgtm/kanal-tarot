@@ -4,3 +4,12 @@
 
 /* Original static trending Pinoy-reaction illustrations */
 .tarot-illustration{width:100%;height:100%;min-height:112px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;padding:4px;overflow:hidden}.tarot-illustration svg{display:block;width:100%;height:100%;max-height:230px;object-fit:contain}.art-mood{font:700 8px/1.2 'DM Sans',sans-serif!important;letter-spacing:.5px;color:#e8cc91!important;text-align:center;filter:none!important}.result-art .tarot-illustration{height:100%;padding:5px 8px}.result-art .tarot-illustration svg{max-height:112px}.mini-card .mini-art{height:142px;margin:10px 0 12px;display:flex;align-items:center;justify-content:center;filter:none}.mini-card .tarot-illustration{height:100%;padding:0 8px}.mini-card .tarot-illustration svg{max-height:118px}.result-art span{font-size:8px;filter:none}
+
+/* Original meme images displayed as-is */
+.tarot-illustration.meme-photo{position:relative;width:100%;height:100%;min-height:112px;padding:5px;display:flex;align-items:center;justify-content:center;overflow:hidden;background:#17101f}
+.tarot-illustration.meme-photo img{display:block;width:100%;height:100%;max-height:230px;object-fit:contain;object-position:center}
+.result-art .tarot-illustration.meme-photo img{max-height:112px}
+.mini-card .mini-art .tarot-illustration.meme-photo{height:142px}
+.mini-card .mini-art .tarot-illustration.meme-photo img{max-height:132px}
+.image-credit{position:absolute;right:4px;bottom:4px;padding:2px 5px;background:#100b18cc;color:#e8cc91;font:700 8px/1.2 'DM Sans',sans-serif;text-decoration:none;border-radius:3px}
+.image-failed{background:linear-gradient(135deg,#30203f,#17101f)}
