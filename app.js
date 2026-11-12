@@ -69,7 +69,6 @@ function buildInterpretation(card,index,cat){
  const punch=openers[cat][seed%openers[cat].length];
  const frame=frames[cat][index];
  const interpretation=[punch,essence,frame].filter(Boolean).join(" ");
- const advice=guidance?guidance+" Bes, advice lang 'to—ikaw pa rin ang masusunod.":"Huminga muna, bes. Piliin ang hakbang na kaya mong panindigan.";
  const savageLines={love:["Kung mixed signals ang ambag, mhie, traffic light ba siya?","Hindi ka waiting shed para tambayan habang may ibang option.","Bare minimum is not a love language, bes."],career:["Hindi ka company property, accla. May buhay ka outside the payslip.","Kung ikaw lahat ang gumagawa, baka hindi teamwork ang tawag diyan.","Promotion ang hanap mo, hindi additional tasks na walang dagdag sahod."],general:["Hindi lahat ng plot twist kailangan mong saluhin. Hindi ka stunt double.","Besh, stop auditioning for a role na ikaw lang ang nag-e-effort.","Kung peace ang gusto mo, huwag mong i-follow ang gulo naka-notifications."],chismis:["May resibo ba o imagination with confidence lang?","Hindi porke naka-close friends story, ikaw na ang press secretary.","I-forward ang facts, hindi ang haka-haka."]};
 const title=card.caption||("Ang Ganap ni "+name);
 const savage=savageLines[cat][seed%savageLines[cat].length];
