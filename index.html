@@ -27,6 +27,17 @@
 <button class="category" data-category="general"><span class="cat-icon">☾</span><span><b>General Life</b><small>Life lately, bes?</small></span><i>↗</i></button>
 <button class="category" data-category="chismis"><span class="cat-icon">👁</span><span><b>Chismis Reading</b><small>Tea, truth & plot twists</small></span><i>↗</i></button>
 </div>
+<div class="profile-box" aria-labelledby="profile-title">
+<div class="profile-heading"><div><p class="eyebrow">OPTIONAL / YOUR PERSONAL COSMIC PROFILE</p><h3 id="profile-title">A little <em>about you, bes.</em></h3></div><span class="profile-badge">PRIVATE · NOT SAVED</span></div>
+<p class="profile-intro">Add any details you’re comfortable sharing. Your birthday can calculate your zodiac sign automatically; these details personalize the language of the reading, but don’t guarantee more accurate predictions.</p>
+<div class="profile-fields">
+<div class="profile-field"><label for="birthdate">Birthday</label><input id="birthdate" type="date" autocomplete="bday"></div>
+<div class="profile-field"><label for="age">Age <span>OPTIONAL</span></label><input id="age" type="number" inputmode="numeric" min="1" max="120" placeholder="e.g. 29"></div>
+<div class="profile-field"><label for="gender">Gender <span>OPTIONAL</span></label><select id="gender"><option value="">Prefer not to say</option><option value="woman">Woman</option><option value="man">Man</option><option value="nonbinary">Non-binary</option><option value="self-described">Another identity</option></select></div>
+<div class="profile-field"><label for="horoscope">Horoscope / zodiac</label><input id="horoscope" type="text" placeholder="Auto-filled from birthday" readonly></div>
+</div>
+<p class="profile-privacy" id="profile-status" aria-live="polite">Your profile stays in this page only. It is not saved or included when you share your reading.</p>
+</div>
 <div class="question-box"><label for="question">May specific question ka? <span>OPTIONAL</span></label><input id="question" maxlength="180" placeholder="e.g. Worth it pa bang i-push ang connection na 'to?"><p>Keep it general—no need to share private or identifying details.</p></div>
 <div class="reading-stage">
 <div class="stage-top"><div><p class="eyebrow">02 / SHUFFLE THE DECK</p><h3>Pick your <em>three baraha.</em></h3></div><div class="deck-count"><b>78</b><span>FULL TAROT DECK</span></div></div>
@@ -44,5 +55,5 @@
 <section class="about-section" id="about"><div class="about-symbol">☽ ✦ ☼</div><div><p class="eyebrow">THE STORY BEHIND THE KALAT</p><h2>Not your lola's<br><em>tarot shop.</em></h2><p>KANAL TAROT brings the symbolism of the 22 Major Arcana into the wonderfully chaotic language of Filipino internet culture. Dito, puwedeng malalim ang realization at kanal ang delivery.</p><p>Tarot is a reflective tool—not a guarantee, diagnosis, or substitute for professional advice. Take what resonates, leave what doesn't, and always keep your agency.</p><a href="#read" class="text-link">Ready ka na? Balik sa baraha ↑</a></div></section>
 </main>
 <footer><a class="footer-brand" href="#home">✦ KANAL TAROT</a><p>Sadhana, trauma, at tsismis.</p><strong>“Ang sagot ay nasa Baraha bes.”</strong><small>© <span id="year"></span> KANAL TAROT · MADE WITH ✦ & KONTING KALAT</small></footer>
-<script src="app.js?v=20261112-unique-readings"></script>
+<script src="app.js?v=20261112-profile-reading"></script>
 </body></html>
