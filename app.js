@@ -1,5 +1,5 @@
 let CARDS=[];
-fetch("cards.json?v=20261112-kanal-bardagulan-v4").then(r=>{if(!r.ok)throw new Error("Could not load tarot deck");return r.json();}).then(data=>{CARDS=data;initTarot();}).catch(()=>{document.querySelector("#stage-instruction").textContent="The baraha are taking a quick coffee break. Refresh to try again.";});
+fetch("cards.json?v=20261112-kanal-bardagulan-v7").then(r=>{if(!r.ok)throw new Error("Could not load tarot deck");return r.json();}).then(data=>{CARDS=data;initTarot();}).catch(()=>{document.querySelector("#stage-instruction").textContent="The baraha are taking a quick coffee break. Refresh to try again.";});
 function initTarot(){
 const categoryInfo={
  love:{label:"Love Chika",past:"What shaped your heart",present:"Where your heart is now",future:"The direction love may take",tone:"Sa puso at connections mo"},
@@ -148,7 +148,11 @@ function renderResults(){
  const info=categoryInfo[chosenCategory];
  const readerProfile=getReadingProfile();
  document.querySelector("#result-category").textContent=info.label+" · "+info.tone;
+ const results=document.querySelector("#results");
+ results.hidden=false;
+ results.style.display="block";
  const host=document.querySelector("#result-cards");
+ host.style.display="grid";
  host.innerHTML="";
  document.querySelector("#summary-text").textContent="";
  document.querySelector("#profile-reading-note").textContent=profileReadingNote(readerProfile,chosenCategory,1);
@@ -167,6 +171,8 @@ function renderResults(){
   article.className="result-card reveal-pending";
   article.innerHTML=`<div class="result-position">${esc(positions[i])}</div><div class="result-art">${artSvg(card)}</div><div><h3>${esc(r.title)}</h3><div class="actual-card-name">${esc(card.name)}</div><div class="meme-caption">“${esc(r.savage)}”</div></div><div class="meaning-label">ANO’NG KALAT ANG DALA NITO?</div><p>${esc(r.interpretation)}</p><div class="meaning-label">SAMPAL NG REALIDAD, WITH LOVE</div><p>${esc(r.advice)}</p>`;
   host.insertBefore(article,status);
+  article.style.display="block";
+  article.style.visibility="visible";
   requestAnimationFrame(()=>{article.classList.remove("reveal-pending");article.classList.add("reveal-in");});
   if(i<2){
    status.textContent=`Card ${i+1} of 3 revealed. Susunod na baraha in 5 seconds… wag magmadali, hindi 'to Shopee checkout. ⏳`;
@@ -179,8 +185,9 @@ function renderResults(){
   }
  };
  revealOne(0);
- document.querySelector("#results").hidden=false;
- document.querySelector("#results").scrollIntoView({behavior:matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth",block:"start"});
+ results.hidden=false;
+ results.style.display="block";
+ results.scrollIntoView({behavior:matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth",block:"start"});
 }
 reveal.addEventListener("click",renderResults);
 document.querySelector("#new-reading-btn").addEventListener("click",()=>{makeDeck();document.querySelector("#question").value="";document.querySelector("#read").scrollIntoView({behavior:"smooth"});});
