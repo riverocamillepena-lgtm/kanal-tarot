@@ -27,33 +27,22 @@ function renderSlots(){selectedRow.innerHTML=positions.map((p,i)=>`<div class="s
 shuffleBtn.addEventListener("click",()=>{fan.querySelectorAll(".tarot-card").forEach((c,i)=>{c.classList.remove("shuffle");void c.offsetWidth;c.style.animationDelay=`${i*12}ms`;c.classList.add("shuffle");});setTimeout(makeDeck,560);});
 category.forEach(btn=>btn.addEventListener("click",()=>{category.forEach(x=>x.classList.remove("active"));btn.classList.add("active");chosenCategory=btn.dataset.category;}));
 function buildInterpretation(card,index,cat){
- const info=categoryInfo[cat];
- const positions=["PAST · PINANGGALINGAN","PRESENT · KASALUKUYAN","FUTURE · SUSUNOD NA DIREKSYON"];
- const name=card.name||"This card";
- const essence=String(card.essence||"").trim();
- const meaning=String(card.meaning||"").trim();
- const guidance=String(card.guidance||"").trim();
- const lens={
-  love:"Sa love life at connections mo: ",
-  career:"Sa trabaho, pera, at goals mo: ",
-  general:"Sa personal na buhay at choices mo: ",
-  chismis:"Sa mga tao, usapan, at impormasyong nakapaligid sa'yo: "
- }[cat];
+ const name=card.name||'Itong baraha';
+ const essence=String(card.essence||'').trim();
+ const meaning=String(card.meaning||'').trim();
+ const guidance=String(card.guidance||'').trim();
+ const lens={love:'Sa lovelife mong parang teleseryeng walang commercial break',career:'Sa career at pera mong minsan gusto mo nang i-resign pati kaluluwa mo',general:'Sa buhay mong akala mo tahimik na, may bagong episode na naman',chismis:'Sa chismis department, kung saan lahat may resibo pero walang umaamin'}[cat];
  const stage={
-  love:["Balikan kung paano nabuo ang pattern na ito sa puso mo.","Ito ang emotional reality na kailangan mong tingnan ngayon.","Ito ang posibleng direksyon kung kikilos ka ayon sa natutunan mo."],
-  career:["Ito ang dating habit o decision na humubog sa work situation mo.","Ito ang kasalukuyang challenge o advantage sa career at finances mo.","Ito ang next move na puwedeng paghandaan sa trabaho at goals."],
-  general:["Ito ang dating experience na may epekto pa sa choices mo.","Ito ang lesson na nasa harap mo ngayon.","Ito ang direction na mabubuksan ng susunod mong decision."],
-  chismis:["Ito ang backstory na dapat unawain bago maniwala sa kwento.","Ito ang detail na kailangan mong i-verify sa kasalukuyan.","Ito ang maaaring maging resulta kapag lumabas ang buong katotohanan."]
+  love:['NOON, BEH: eto ang pinagmulan ng kalat sa puso mo.','NGAYON ANG GANAP: ito ang eksenang ayaw mong i-seen pero kailangan mong harapin.','NEXT EPISODE: ito ang puwedeng kahinatnan kung itutuloy mo ang ganitong galawan.'],
+  career:['FLASHBACK: may dating desisyon o habit na hanggang ngayon may resibo pa rin.','LIVE UPDATE: ito ang current ganap sa trabaho, pera, at pangarap mo.','COMING SOON: ito ang direksyong bubukas depende sa next move mo.'],
+  general:['ORIGIN STORY: dito nagsimula ang character development mong walang consent.','CURRENT EPISODE: eto ang plot na nasa harap mo ngayon, beh.','SEASON FINALE ENERGY: ito ang puwedeng sumunod kapag pinili mong kumilos.'],
+  chismis:['BACKSTORY MUNA: bago ka mag-share sa GC, eto ang ugat ng issue.','BREAKING CHIKA: eto ang detalyeng dapat mong silipin ngayon.','ABANGAN ANG PASABOG: eto ang posibleng lumitaw kapag nagkalinawan na.']
  }[cat][index];
- const title=card.caption||("Ang Ganap ni "+name);
- const savage=String(card.caption||name)+" — hindi ito generic na hula, bes; ito ang specific na tema ng barahang ito.";
- const interpretation=[lens+essence,stage, "Core meaning: "+meaning+"."].filter(Boolean).join(" ");
- const advice=guidance+" "+({
-  love:"I-apply ito sa actions at consistency, hindi lang sa kilig o pangako.",
-  career:"I-translate ito sa isang practical na hakbang at malinaw na boundary.",
-  general:"Pumili ng isang bagay na kaya mong gawin ngayon; huwag puro overthink.",
-  chismis:"Ihiwalay ang facts sa haka-haka bago mag-react o mag-share."
- }[cat]);
+ const title=card.caption||('Ang kalat ni '+name);
+ const roasts=['Beh, hindi ito dekorasyon sa mesa. May pinupunto to.','Hindi ka pinatawag para husgahan—pinatawag ka para matauhan, mhie.','Paki-upo ang sarili. May sinasabi ang baraha at hindi siya nagpa-appointment.'];
+ const savage=(card.caption||name)+' — '+roasts[index];
+ const interpretation=lens+'. '+stage+' '+essence+' At para walang ligoy-ligoy: '+meaning+'.';
+ const advice=guidance+' '+({love:'Tigilan ang pag-romanticize ng bare minimum. Kung gusto, dapat may gawa. Hindi puro seen-zoned na pangako.',career:'Galaw-galaw rin, accla. Isang konkretong hakbang muna; hindi mababayaran ng manifestation ang bills mo.',general:'Piliin mo ang sarili mo pero samahan ng aksyon. Hindi lahat nadadaan sa dasurv ko ng peace habang ikaw rin ang gumugulo.',chismis:'Huwag magpakalat ng hearsay na parang may presscon ka. Resibo muna bago bardagulan.'}[cat]);
  return {position:positions[index],categoryLine:stage,interpretation,advice,meaning,title,savage};
 }
 function getReadingProfile(){
@@ -81,8 +70,8 @@ function profileReadingNote(profile,cat,index){
  if(profile.age!==null){const band=profile.age<20?"early-life choices and learning":profile.age<30?"exploration, identity, and building foundations":profile.age<40?"priorities, growth, and sustainable commitments":profile.age<50?"reassessment, stability, and meaningful change":"experience, perspective, and what deserves your energy";parts.push("Life-stage lens: "+band+".");}
  return parts.length?"Personal lens — "+parts.join(" "):"";
 }
-function renderResults(){const info=categoryInfo[chosenCategory];const readerProfile=getReadingProfile();document.querySelector("#result-category").textContent=info.label+" · "+info.tone;document.querySelector("#result-cards").innerHTML=picked.map((card,i)=>{const r=buildInterpretation(card,i,chosenCategory);return `<article class="result-card reveal-pending"><div class="result-position">${positions[i]}</div><div class="result-art">${artSvg(card)}</div><div><h3>${r.title}</h3><div class="actual-card-name">${card.name}</div><div class="meme-caption">“${r.savage}”</div></div><div class="meaning-label">Tarot meaning, with konting kalat</div><p>${r.meaning}</p><div class="meaning-label">Ang chika ng baraha</div><p>${r.interpretation}</p><div class="meaning-label">Gawin mo 'to, beh</div><p>${r.advice}</p></article>`;}).join("");
-const summary=`MGA ACCLA, ETO ANG CHIKA! ${picked.map((c,i)=>`${positions[i]} — ${c.name}: ${c.essence}`).join(" ")} FINAL VERDICT: ${picked[2].guidance} PLOT TWIST: hindi pare-pareho ang ganap ng tatlong baraha—ang unang card ang pinanggalingan, ang pangalawa ang kasalukuyan, at ang pangatlo ang direction na puwede mong piliin.`;
+function renderResults(){const info=categoryInfo[chosenCategory];const readerProfile=getReadingProfile();document.querySelector("#result-category").textContent=info.label+" · "+info.tone;document.querySelector("#result-cards").innerHTML=picked.map((card,i)=>{const r=buildInterpretation(card,i,chosenCategory);return `<article class="result-card reveal-pending"><div class="result-position">${positions[i]}</div><div class="result-art">${artSvg(card)}</div><div><h3>${r.title}</h3><div class="actual-card-name">${card.name}</div><div class="meme-caption">“${r.savage}”</div></div><div class="meaning-label">ANO ANG PINAGSASABI NITONG BARAHANG ITO?</div><p>${r.meaning}</p><div class="meaning-label">ETO ANG CHIKA, WAG KANG MAGPANGGAP NA DI KA NAKINIG</div><p>${r.interpretation}</p><div class="meaning-label">ANO NA, BEH? GALAW-GALAW DIN</div><p>${r.advice}</p></article>`;}).join("");
+const summary='MGA ACCLA, ITO ANG GROUP CHAT RECAP! Una, '+picked[0].name+' ang naglabas ng lumang ganap: '+picked[0].essence+' Sunod, si '+picked[1].name+' ang naglatag ng current issue: '+picked[1].essence+' At ang huling pasabog ay si '+picked[2].name+': '+picked[2].essence+' FINAL VERDICT, MGA BEH: '+picked[2].guidance+' Hindi ito utos ng universe—ikaw pa rin ang may hawak ng manibela. Pero jusko, huwag mong sabihing walang warning.';
 document.querySelector("#summary-text").textContent=summary;document.querySelector("#profile-reading-note").textContent=profileReadingNote(readerProfile,chosenCategory,1);
 const q=document.querySelector("#question").value.trim();document.querySelector("#question-echo").textContent=q?`Tanong mo: “${q}” — eto ang baraha’s two cents. Hindi ito court ruling, bes.`:"Disclaimer: tarot lang ito, hindi memo from the universe. Ikaw pa rin ang may final say.";
 lastReading={category:info.label,cards:picked.map((c,i)=>({name:c.name,position:positions[i],caption:c.caption,meaning:c.meaning,interpretation:buildInterpretation(c,i,chosenCategory).interpretation,advice:c.guidance})),summary,question:q};
