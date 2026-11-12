@@ -39,24 +39,24 @@ function buildInterpretation(card,index,cat){
  guidance=guidance.replace(/\s+(?:Huwag hayaang puro hype ang gasolina|Huwag mong madaliin ang proseso|Bigyan ng oras at aksyon ang pangarap mo)\.?/gi,"").trim();
  const frames={
   love:[
-   "Balikan ang pattern sa puso mo: saan nagsimula ang ganitong klaseng kilig o sakit?",
-   "Sa love life ngayon, tingnan kung tugma ang effort, respeto, at consistency—hindi puro seen at mixed signals.",
-   "Kung itutuloy ang parehong pattern, ito ang puwedeng direksyon ng love story mo. May choice ka pa ring baguhin ang script."
+   "Ate, balikan natin ang resibo: kailan ka nagsimulang mag-settle sa ganitong treatment?",
+   "Sa ngayon, mhie, may effort ba talaga o ikaw lang ang gumagawa ng fan fiction mula sa isang seen?",
+   "Kung same script pa rin, alam na natin ang next episode. Pero puwede kang mag-unfollow sa plot na 'yan, beh."
   ],
   career:[
-   "Sa work history mo, anong habit o desisyon ang nagdala sa sitwasyong ito?",
-   "Sa trabaho at pera ngayon, saan napupunta ang oras at effort mo—may balik ba o puro pagod?",
-   "Ito ang posibleng next chapter sa career kapag sinabayan mo ng totoong plano at kilos."
+   "Career recap muna, accla: anong diskarte ang nagdala sa'yo rito, at alin ang dapat nang i-retire?",
+   "Sa office chika: bayad ba ang effort mo o ikaw na naman ang employee of the month na walang dagdag sahod?",
+   "Ito ang next career episode kung may plano ka at hindi puro 'manifesting' sa notes app."
   ],
   general:[
-   "Ito ang dating chapter na maaaring may iniwang lesson. Ano ang ayaw mo nang ulitin?",
-   "Ito ang pangunahing ganap ngayon. Harapin ang totoong issue, hindi lang ang ingay sa paligid.",
-   "Ito ang posibleng susunod na kabanata kung dadalhin mo ang lesson na natutunan mo."
+   "Throwback chika: ano ang nangyari dati na ayaw mo nang i-reboot kahit may nostalgia?",
+   "Current ganap, bes: alin ang totoong problema at alin ang noise lang ng mga taong bored?",
+   "Next episode: puwedeng mas maayos ang takbo kung hindi mo na dadalhin ang lumang kalat."
   ],
   chismis:[
-   "Sa backstory ng chika, hanapin ang pinagmulan at huwag agad maniwala sa unang version.",
-   "Sa kasalukuyang ganap, ihiwalay ang resibo sa haka-haka. Hindi lahat ng loudest sa group chat ay tama.",
-   "Sa next episode, may maaaring luminaw—pero facts muna bago mag-conclude o magkalat."
+   "Sa backstory ng chika, sino ang source at nasaan ang resibo? Huwag tayong basta naniniwala sa forwarded many times.",
+   "Sa current ganap, facts muna bago voice note na walong minuto. Hindi volume ang sukatan ng katotohanan.",
+   "Sa next episode, baka may lumabas na detalye. Pero kalma muna, hindi tayo breaking news channel."
   ]
  };
  const openers={
