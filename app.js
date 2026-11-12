@@ -27,37 +27,50 @@ function renderSlots(){selectedRow.innerHTML=positions.map((p,i)=>`<div class="s
 shuffleBtn.addEventListener("click",()=>{fan.querySelectorAll(".tarot-card").forEach((c,i)=>{c.classList.remove("shuffle");void c.offsetWidth;c.style.animationDelay=`${i*12}ms`;c.classList.add("shuffle");});setTimeout(makeDeck,560);});
 category.forEach(btn=>btn.addEventListener("click",()=>{category.forEach(x=>x.classList.remove("active"));btn.classList.add("active");chosenCategory=btn.dataset.category;}));
 function buildInterpretation(card,index,cat){
- const info=categoryInfo[cat],position=info[["past","present","future"][index]];
- const meaning=String(card.meaning||"").trim();
- const essence=String(card.essence||"").trim();
- const guidance=String(card.guidance||"").trim();
+ const info=categoryInfo[cat];
+ const position=info[["past","present","future"][index]];
  const name=card.name||"This card";
- const suit=card.suit||"";
- const rank=card.rank||"";
- const positionLens={
-  past:{love:"Sa love story mo, tingnan kung anong pattern o lesson ang galing sa nakaraan.",career:"Sa career mo, balikan kung anong experience ang humubog sa paraan mo ng pagtatrabaho.",general:"Sa buhay mo, ito ang dating pattern o pangyayaring nagdala sa iyo rito.",chismis:"Sa backstory ng ganap, hanapin ang pinagmulan bago maniwala sa version ng bawat marites."},
-  present:{love:"Sa kasalukuyang relasyon o dating life, obserbahan kung tugma ang salita at kilos.",career:"Sa trabaho at pera ngayon, tingnan kung paano mo hinahandle ang responsibility at opportunity.",general:"Sa present situation, ito ang energy o lesson na kailangan mong harapin ngayon.",chismis:"Sa kasalukuyang chika, ihiwalay ang nakikita mong facts sa assumptions at haka-haka."},
-  future:{love:"Sa susunod na kabanata ng love life, ito ang direksyong puwedeng mabuo kung magpapatuloy ang kasalukuyang pattern.",career:"Sa career path, ito ang posibleng resulta kapag sinabayan mo ng consistent na action ang sitwasyon.",general:"Sa susunod na phase, ito ang posibilidad na mabubuksan ng mga desisyon mo ngayon.",chismis:"Sa next episode, ito ang puwedeng lumitaw—pero hintayin muna ang resibo bago mag-conclude."}
+ const meaning=String(card.meaning||"").trim();
+ // The card's own Filipino essence is the heart of the reading. Remove repetitive
+ // suit boilerplate so each card's individual message stays in front.
+ let essence=String(card.essence||"").trim();
+ let guidance=String(card.guidance||"").trim();
+ essence=essence.replace(/\\s+Sa (?:goals at creative projects mo|love and relationships mo|emotional world mo|work and finances mo),?[^.]*\\.?/gi,"").trim();
+ guidance=guidance.replace(/\\s+(?:Huwag hayaang puro hype ang gasolina|Huwag mong madaliin ang proseso|Bigyan ng oras at aksyon ang pangarap mo)\\.?/gi,"").trim();
+ const frames={
+  love:[
+   "Balikan ang pattern sa puso mo: saan nagsimula ang ganitong klaseng kilig o sakit?",
+   "Sa love life ngayon, tingnan kung tugma ang effort, respeto, at consistency—hindi puro seen at mixed signals.",
+   "Kung itutuloy ang parehong pattern, ito ang puwedeng direksyon ng love story mo. May choice ka pa ring baguhin ang script."
+  ],
+  career:[
+   "Sa work history mo, anong habit o desisyon ang nagdala sa sitwasyong ito?",
+   "Sa trabaho at pera ngayon, saan napupunta ang oras at effort mo—may balik ba o puro pagod?",
+   "Ito ang posibleng next chapter sa career kapag sinabayan mo ng totoong plano at kilos."
+  ],
+  general:[
+   "Ito ang dating chapter na maaaring may iniwang lesson. Ano ang ayaw mo nang ulitin?",
+   "Ito ang pangunahing ganap ngayon. Harapin ang totoong issue, hindi lang ang ingay sa paligid.",
+   "Ito ang posibleng susunod na kabanata kung dadalhin mo ang lesson na natutunan mo."
+  ],
+  chismis:[
+   "Sa backstory ng chika, hanapin ang pinagmulan at huwag agad maniwala sa unang version.",
+   "Sa kasalukuyang ganap, ihiwalay ang resibo sa haka-haka. Hindi lahat ng loudest sa group chat ay tama.",
+   "Sa next episode, may maaaring luminaw—pero facts muna bago mag-conclude o magkalat."
+  ]
  };
- const lens=positionLens[["past","present","future"][index]][cat];
- const suitLens={
-  Wands:"May kinalaman ito sa drive, passion, creativity, at kung saan mo inilalagay ang energy mo.",
-  Cups:"May kinalaman ito sa feelings, emotional needs, connection, at kung paano ka tumutugon sa puso mo.",
-  Swords:"May kinalaman ito sa isip, komunikasyon, katotohanan, at mga desisyong kailangang linawin.",
-  Pentacles:"May kinalaman ito sa pera, trabaho, stability, routine, at mga bagay na pinapatatag mo."
- };
- const cardContext=suit?suitLens[suit]||"": "";
- const rankContext=rank==="Ace"?"Bagong simula ang diin ng baraha.":rank==="Two"?"May pagpili o dalawang direksyong kailangang timbangin.":rank==="Three"?"May pag-unlad o resulta na nagsisimula nang makita.":rank==="Four"?"Stability at pundasyon ang sinusubok.":rank==="Five"?"May hamon o friction na kailangang harapin.":rank==="Six"?"May adjustment, tulong, o pag-usad matapos ang challenge.":rank==="Seven"?"Kailangan ng patience at pag-assess kung sulit ang effort.":rank==="Eight"?"Consistency, practice, at aktuwal na pagkilos ang susi.":rank==="Nine"?"Malapit na sa milestone, pero kailangan pa ring alagaan ang sarili.":rank==="Ten"?"Umaabot sa completion o peak ang isang cycle.":rank==="Page"?"Curiosity at pagiging handang matuto ang kailangan.":rank==="Knight"?"Action at commitment ang sinusukat.":rank==="Queen"?"Maturity at maingat na paghawak sa sitwasyon ang diin.":rank==="King"?"Leadership, accountability, at mastery ang hamon.":"";
- const kanalOpeners={
-  love:["Ate ko, puso mo ba 'yan o public service hotline?","Mhie, kilig is cute pero consistency ang tunay na love language.","Besh, pakinggan ang baraha bago ka mag-double text."],
-  career:["Work smart, hindi work martyr, accla.","Mhie, hindi ka office appliance na dapat laging naka-on.","Kung puro pagod at walang growth, kailangan nang mag-usap."],
+ const openers={
+  love:["Ate ko, puso mo ba 'yan o public service hotline?","Mhie, kilig is cute pero consistency ang tunay na love language.","Besh, huwag gawing unpaid internship ang paghihintay sa taong walang effort."],
+  career:["Work smart, hindi work martyr, accla.","Mhie, hindi ka office appliance na dapat laging naka-on.","Kung puro pagod at walang growth, kailangan nang magbago ng strategy."],
   general:["Main character ka, pero kailangan mo ring basahin ang script.","Besh, plot twist man ito, hindi ibig sabihing wala kang choice.","Kalma, mhie. Hindi lahat ng problema kailangan i-solve bago mag-merienda."],
   chismis:["Mga accla, ilabas ang resibo pero huwag mag-imbento.","Ay mhie, may tea—but facts muna bago chika.","Group chat energy ito, pero discernment pa rin ang puhunan."]
  };
- const punch=kanalOpeners[cat][(String(card.id||name).length+index)%kanalOpeners[cat].length];
- const interpretation=[punch,essence,lens,cardContext,rankContext].filter(Boolean).join(" ");
- const advice=guidance?guidance+" Bes, advice lang 'to—ikaw pa rin ang masusunod.":"Huminga muna, bes. Tingnan ang buong sitwasyon at piliin ang hakbang na kaya mong panindigan.";
- return {position,categoryLine:lens,interpretation,advice,meaning};
+ const seed=String(card.id??name).split("").reduce((n,ch)=>n+ch.charCodeAt(0),0);
+ const punch=openers[cat][seed%openers[cat].length];
+ const frame=frames[cat][index];
+ const interpretation=[punch,essence,frame].filter(Boolean).join(" ");
+ const advice=guidance?guidance+" Bes, advice lang 'to—ikaw pa rin ang masusunod.":"Huminga muna, bes. Piliin ang hakbang na kaya mong panindigan.";
+ return {position,categoryLine:frame,interpretation,advice,meaning};
 }
 function getReadingProfile(){
  const birthday=document.querySelector("#birthdate").value;
