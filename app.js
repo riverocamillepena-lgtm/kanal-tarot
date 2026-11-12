@@ -1,5 +1,5 @@
 let CARDS=[];
-fetch("cards.json?v=20261112-kanal-bardagulan-v7").then(r=>{if(!r.ok)throw new Error("Could not load tarot deck");return r.json();}).then(data=>{CARDS=data;initTarot();}).catch(()=>{document.querySelector("#stage-instruction").textContent="The baraha are taking a quick coffee break. Refresh to try again.";});
+fetch("cards.json?v=20261112-kalat-reading-v3").then(r=>{if(!r.ok)throw new Error("Could not load tarot deck");return r.json();}).then(data=>{CARDS=data;initTarot();}).catch(()=>{document.querySelector("#stage-instruction").textContent="The baraha are taking a quick coffee break. Refresh to try again.";});
 function initTarot(){
 const categoryInfo={
  love:{label:"Love Chika",past:"What shaped your heart",present:"Where your heart is now",future:"The direction love may take",tone:"Sa puso at connections mo"},
@@ -75,7 +75,7 @@ function renderResults(){
    revealTimers.push(setTimeout(()=>revealOne(i+1),5000));
   }else{
    status.textContent="Tapos na ang reading! O ayan, may bagong episode na naman ang buhay mo. 😂";
-   const summary='ETO ANG RESIBO NG TATLONG BARAHANG BINUNOT MO: '+picked.map((c,i)=>positions[i]+': '+c.name+' — '+c.essence).join(' | ')+' FINAL WORD: '+picked[2].guidance;
+   const summary='ETO ANG RESIBO NG TATLONG BARAHANG BINUNOT MO: '+picked.map((c,i)=>{const r=buildInterpretation(c,i,chosenCategory);return positions[i]+': '+r.title+' — '+r.interpretation+' RESBAK: '+r.advice;}).join(' | ')+' FINAL WORD: '+buildInterpretation(picked[2],2,chosenCategory).advice;
    document.querySelector("#summary-text").textContent=summary;
    lastReading={category:info.label,cards:picked.map((c,i)=>({name:c.charotName||c.name,position:positions[i],caption:c.caption,meaning:c.meaning,interpretation:buildInterpretation(c,i,chosenCategory).interpretation,advice:c.guidance})),summary,question:q};
   }
