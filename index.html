@@ -6,7 +6,7 @@
 <title>KANAL TAROT — Ang sagot ay nasa Baraha bes</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=DM+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css?v=20261112-physical-flip-cards-v1">
+<link rel="stylesheet" href="styles.css?v=20261112-no-profile-data-v1">
 </head>
 <body>
 <div class="starfield" aria-hidden="true"></div>
@@ -27,17 +27,6 @@
 <button class="category" data-category="general"><span class="cat-icon">☾</span><span><b>Life Chika</b><small>Anong ganap sa buhay mo, accla?</small></span><i>↗</i></button>
 <button class="category" data-category="chismis"><span class="cat-icon">👁</span><span><b>Chismis Central</b><small>Resibo muna bago kalat!</small></span><i>↗</i></button>
 </div>
-<div class="profile-box" aria-labelledby="profile-title">
-<div class="profile-heading"><div><p class="eyebrow">OPTIONAL / YOUR PERSONAL COSMIC PROFILE</p><h3 id="profile-title">Konting <em>chika tungkol sa’yo, bes.</em></h3></div><span class="profile-badge">PRIVATE · NOT SAVED</span></div>
-<p class="profile-intro">Add any details you’re comfortable sharing. Your birthday can calculate your zodiac sign automatically; these details personalize the language of the reading, but don’t guarantee more accurate predictions.</p>
-<div class="profile-fields">
-<div class="profile-field"><label for="birthdate">Birthday</label><input id="birthdate" type="date" autocomplete="bday"></div>
-<div class="profile-field"><label for="age">Age <span>OPTIONAL</span></label><input id="age" type="number" inputmode="numeric" min="1" max="120" placeholder="e.g. 29"></div>
-<div class="profile-field"><label for="gender">Gender <span>OPTIONAL</span></label><select id="gender"><option value="">Prefer not to say</option><option value="woman">Woman</option><option value="man">Man</option><option value="nonbinary">Non-binary</option><option value="self-described">Another identity</option></select></div>
-<div class="profile-field"><label for="horoscope">Horoscope / zodiac</label><input id="horoscope" type="text" placeholder="Auto-filled from birthday" readonly></div>
-</div>
-<p class="profile-privacy" id="profile-status" aria-live="polite">Your profile stays in this page only. It is not saved or included when you share your reading.</p>
-</div>
 <div class="question-box"><label for="question">May specific question ka? <span>OPTIONAL</span></label><input id="question" maxlength="180" placeholder="e.g. Worth it pa bang i-push ang connection na 'to?"><p>Keep it general—no need to share private or identifying details.</p></div>
 <div class="reading-stage">
 <div class="stage-top"><div><p class="eyebrow">02 / SHUFFLE THE DECK</p><h3>Pick your <em>three baraha.</em></h3></div><div class="deck-count"><b>78</b><span>FULL TAROT DECK</span></div></div>
@@ -49,11 +38,11 @@
 <div class="reveal-row"><button class="button button-gold" id="reveal-btn" disabled>Reveal my reading <span>✦</span></button></div>
 <p class="tiny-note">The deck is reshuffled for every new reading. No duplicate cards, promise ni universe.</p>
 </div>
-<div class="results" id="results" hidden aria-live="polite"><div class="result-head"><p class="eyebrow">03 / THE UNIVERSE HAS SPOKEN</p><h2>Your cosmic <em>chika.</em></h2><p id="result-category"></p></div><div id="result-cards" class="result-cards"></div><div class="summary-box"><span class="summary-kicker">ANG MARITES REPORT · EXCLUSIVE CHIKA</span><h3>O eto na ang resibo, mga accla!</h3><p id="summary-text"></p><p id="profile-reading-note" class="profile-reading-note"></p><div class="question-echo" id="question-echo"></div></div><div class="result-actions"><button class="button button-gold" id="share-btn">Share my reading ↗</button><button class="button button-outline" id="new-reading-btn">Start a new reading ⟳</button></div><p class="share-status" id="share-status" role="status"></p></div>
+<div class="results" id="results" hidden aria-live="polite"><div class="result-head"><p class="eyebrow">03 / THE UNIVERSE HAS SPOKEN</p><h2>Your cosmic <em>chika.</em></h2><p id="result-category"></p></div><div id="result-cards" class="result-cards"></div><div class="summary-box"><span class="summary-kicker">ANG MARITES REPORT · EXCLUSIVE CHIKA</span><h3>O eto na ang resibo, mga accla!</h3><p id="summary-text"></p><div class="question-echo" id="question-echo"></div></div><div class="result-actions"><button class="button button-gold" id="share-btn">Share my reading ↗</button><button class="button button-outline" id="new-reading-btn">Start a new reading ⟳</button></div><p class="share-status" id="share-status" role="status"></p></div>
 </section>
 <section class="deck-section section-wrap" id="deck"><div class="section-heading"><p class="eyebrow">THE COMPLETE DECK / 22 CARDS</p><h2>Kilalanin ang mga <em>baraha, accla.</em></h2><p>22 Major Arcana + 56 Minor Arcana. Four suits, 78 cards, at 78 chances ma-call out ng universe.</p></div><div class="deck-grid" id="deck-grid"></div></section>
 <section class="about-section" id="about"><div class="about-symbol">☽ ✦ ☼</div><div><p class="eyebrow">THE STORY BEHIND THE KALAT</p><h2>Hindi ito tarot shop ng<br><em>lola mo, mhie.</em></h2><p>KANAL TAROT brings the symbolism of the 22 Major Arcana into the wonderfully chaotic language of Filipino internet culture. Dito, puwedeng malalim ang realization at kanal ang delivery.</p><p>Tarot is a reflective tool—not a guarantee, diagnosis, or substitute for professional advice. Take what resonates, leave what doesn't, and always keep your agency.</p><a href="#read" class="text-link">Ready ka na? Balik sa baraha ↑</a></div></section>
 </main>
 <footer><a class="footer-brand" href="#home">✦ KANAL TAROT</a><p>Bakla, geng-geng, ang chika ng baraha!</p><strong>“Ang sagot ay nasa Baraha, mga accla!”</strong><small>© <span id="year"></span> KANAL TAROT · MADE WITH ✦ & KONTING KALAT</small></footer>
-<script src="app.js?v=20261112-physical-flip-cards-v1"></script>
+<script src="app.js?v=20261112-no-profile-data-v1"></script>
 </body></html>
