@@ -100,3 +100,5 @@ footer strong{color:var(--lime);font-family:"DM Sans",sans-serif;font-weight:100
 .summary-box:after{content:"PLOT TWIST";position:absolute;right:16px;top:13px;color:#ff9bcf;border:1px solid #ff4fa3;padding:5px 9px;border-radius:999px;font-size:9px;font-weight:1000;letter-spacing:1px;transform:rotate(7deg)}
 #summary-text{font-size:14px;line-height:1.9}
 @media(prefers-reduced-motion:reduce){.result-card.reveal-pending{opacity:1;transform:none;filter:none}.result-card.reveal-in{animation:none}}
+
+.actual-card-name{margin:3px 0 8px;color:#f8d9ec;font-size:10px;font-weight:800;letter-spacing:1.2px;text-transform:uppercase}
