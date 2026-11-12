@@ -7,7 +7,7 @@ const categoryInfo={
  general:{label:"Life Chika",past:"The chapter behind you",present:"Your current life lesson",future:"The road opening ahead",tone:"Sa bigger picture ng buhay mo"},
  chismis:{label:"Chismis Central",past:"The backstory",present:"What is happening beneath the surface",future:"What may come to light",tone:"Sa tea, truth, at mga ganap sa paligid mo"}
 };
-const positions=["PAST · PINANGGALINGAN","PRESENT · KASALUKUYAN","FUTURE · SUSUNOD NA DIREKSYON"];
+const positions=["NOON PA ANG KALAT","ITO ANG GANAP NGAYON","NEXT EPISODE: ABANGAN"];
 const category=document.querySelectorAll(".category");
 const fan=document.querySelector("#card-fan"),selectedRow=document.querySelector("#selected-row"),count=document.querySelector("#pick-count");
 const reveal=document.querySelector("#reveal-btn"),shuffleBtn=document.querySelector("#shuffle-btn");
@@ -23,7 +23,7 @@ function artSvg(card){
 }
 function makeDeck(){revealTimers.forEach(clearTimeout);revealTimers=[];deck=shuffle([...CARDS]);picked=[];renderFan();renderSlots();document.querySelector("#results").hidden=true;reveal.disabled=true;count.textContent="0 / 3 selected";document.querySelector("#stage-instruction").textContent="Take a breath, bes. Tap a card and choose three—trust the chismis of the cosmos."; }
 function renderFan(){fan.innerHTML="";deck.forEach((card,index)=>{const b=document.createElement("button");b.className="tarot-card";b.type="button";b.setAttribute("aria-label",`Face-down tarot card ${index+1}`);b.dataset.index=index;b.addEventListener("click",()=>pickCard(card,b));fan.append(b);});}
-function pickCard(card,button){if(picked.length>=3||picked.some(c=>c.id===card.id))return;picked.push(card);button.classList.add("picked");button.disabled=true;button.setAttribute("aria-label",`${card.name} selected`);renderSlots();count.textContent=`${picked.length} / 3 selected`;reveal.disabled=picked.length!==3;if(picked.length===3)document.querySelector("#stage-instruction").textContent="Three cards selected. The universe has entered the group chat."; }
+function pickCard(card,button){if(picked.length>=3||picked.some(c=>c.id===card.id))return;picked.push(card);button.classList.add("picked");button.disabled=true;button.setAttribute("aria-label",`${card.name} selected`);renderSlots();count.textContent=`${picked.length} / 3 selected`;reveal.disabled=picked.length!==3;if(picked.length===3)document.querySelector("#stage-instruction").textContent="Tatlong baraha na. Naka-ready na ang group chat. 😂"; }
 function renderSlots(){selectedRow.innerHTML=positions.map((p,i)=>{const card=picked[i];return card?'<div class="selected-preview"><span class="preview-position">'+esc(p)+'</span><div class="preview-card">'+artSvg(card)+'<b>'+esc(card.name)+'</b></div></div>':'<div class="selected-slot">'+esc(p)+'<b>Awaiting your pick…</b></div>';}).join("");}
 shuffleBtn.addEventListener("click",()=>{fan.querySelectorAll(".tarot-card").forEach((c,i)=>{c.classList.remove("shuffle");void c.offsetWidth;c.style.animationDelay=`${i*12}ms`;c.classList.add("shuffle");});setTimeout(makeDeck,560);});
 category.forEach(btn=>btn.addEventListener("click",()=>{category.forEach(x=>x.classList.remove("active"));btn.classList.add("active");chosenCategory=btn.dataset.category;}));
@@ -114,8 +114,8 @@ function buildInterpretation(card,index,cat){
  ];
  const id=Number.isInteger(card.id)?card.id:0;
  const savage=roasts[((id%roasts.length)+roasts.length)%roasts.length];
- const interpretation=essence||"Walang nakalagay na chika sa barahang ito—pakicheck ang card data.";
- const advice=guidance||"Walang advice na nakalagay. Huwag magdesisyon base sa hula lang.";
+ const interpretation=essence?("Eto ang chika: "+essence+" "+savage):"Walang chika sa barahang ito—pakicheck ang card data.";
+ const advice=guidance?("O eto ang resbak: "+guidance+" At please, gawin mo naman. Hindi sapat ang pag-like sa sariling potential."): "Walang advice na nakalagay. Huwag magdesisyon base sa hula lang.";
  return {position:positions[index],categoryLine:"",interpretation,advice,meaning:card.meaning||"",title,savage};
 }
 function renderResults(){
@@ -136,14 +136,14 @@ function renderResults(){
  const status=document.createElement("p");
  status.className="reveal-status";
  status.setAttribute("role","status");
- status.textContent="Unang baraha muna. Pagkatapos nito, 5 seconds ang pagitan bago ang kasunod. Huminga ka muna, mhie. 😂";
+ status.textContent="Unang baraha muna. May 5 seconds pagitan bago ang kasunod. Hindi ito teleseryeng puwedeng i-fast forward. 😂";
  host.append(status);
  const revealOne=(i)=>{
   const card=picked[i];
   const r=buildInterpretation(card,i,chosenCategory);
   const article=document.createElement("article");
   article.className="result-card reveal-pending";
-  article.innerHTML=`<button class="flip-card" type="button" aria-label="Flip card to reveal the reading"><span class="flip-inner"><span class="flip-face flip-front"><span class="front-art">${artSvg(card)}</span></span><span class="flip-face flip-back"><span class="back-position">${esc(positions[i])}</span><strong class="back-title">${esc(r.title)}</strong><span class="actual-card-name">${esc(card.name)}</span><span class="meme-caption">“${esc(r.savage)}”</span><span class="meaning-label">ANO’NG KALAT ANG DALA NITO?</span><span class="back-copy">${esc(r.interpretation)}</span><span class="meaning-label">SAMPAL NG REALIDAD, WITH LOVE</span><span class="back-copy">${esc(r.advice)}</span><span class="flip-hint">TAP TO SEE THE CARD ↻</span></span></span></button>`;
+  article.innerHTML=`<button class="flip-card" type="button" aria-label="Flip card to reveal the reading"><span class="flip-inner"><span class="flip-face flip-front"><span class="front-art">${artSvg(card)}</span></span><span class="flip-face flip-back"><span class="back-position">${esc(positions[i])}</span><strong class="back-title">${esc(r.title)}</strong><span class="actual-card-name">${esc(card.name)}</span><span class="meme-caption">“${esc(r.savage)}”</span><span class="meaning-label">ETO ANG CHIKA, HUWAG KANG MA-SHOCK</span><span class="back-copy">${esc(r.interpretation)}</span><span class="meaning-label">HETO ANG RESBAK, BEH</span><span class="back-copy">${esc(r.advice)}</span><span class="flip-hint">TAP MO PARA SA CHIKA ↻</span></span></span></button>`;
   article.querySelector(".flip-card").addEventListener("click",()=>{const flip=article.querySelector(".flip-card");flip.classList.toggle("is-flipped");flip.setAttribute("aria-label",flip.classList.contains("is-flipped")?"Show card artwork":"Flip card to read its meaning");});
   host.insertBefore(article,status);
   article.style.display="block";
@@ -153,7 +153,7 @@ function renderResults(){
    status.textContent=`Card ${i+1} of 3 revealed. Susunod na baraha in 5 seconds… wag magmadali, hindi 'to Shopee checkout. ⏳`;
    revealTimers.push(setTimeout(()=>revealOne(i+1),5000));
   }else{
-   status.textContent="Kompleto na ang tatlong baraha. O ayan, lumabas na ang buong kalat. 😂";
+   status.textContent="Tapos na ang reading! O ayan, may bagong episode na naman ang buhay mo. 😂";
    const summary='ETO ANG RESIBO NG TATLONG BARAHANG BINUNOT MO: '+picked.map((c,i)=>positions[i]+': '+c.name+' — '+c.essence).join(' | ')+' FINAL WORD: '+picked[2].guidance;
    document.querySelector("#summary-text").textContent=summary;
    lastReading={category:info.label,cards:picked.map((c,i)=>({name:c.name,position:positions[i],caption:c.caption,meaning:c.meaning,interpretation:buildInterpretation(c,i,chosenCategory).interpretation,advice:c.guidance})),summary,question:q};
