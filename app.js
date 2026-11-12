@@ -28,51 +28,34 @@ function renderSlots(){selectedRow.innerHTML=positions.map((p,i)=>{const card=pi
 shuffleBtn.addEventListener("click",()=>{fan.querySelectorAll(".tarot-card").forEach((c,i)=>{c.classList.remove("shuffle");void c.offsetWidth;c.style.animationDelay=`${i*12}ms`;c.classList.add("shuffle");});setTimeout(makeDeck,560);});
 category.forEach(btn=>btn.addEventListener("click",()=>{category.forEach(x=>x.classList.remove("active"));btn.classList.add("active");chosenCategory=btn.dataset.category;}));
 const categoryJokes={
-love:[
-["Ikaw na naman ang nagbubuhat ng usapan. Parang ikaw ang Wi-Fi: kapag nawala ka, wala ring connection.","Tigilan ang good morning sa taong good night lang ang ambag. Hindi ka alarm clock."],
-["May pa-sweet sa chat pero pag usapang label, biglang under processing. Ilang working days pa ba, accla?","Tanungin kung ano kayo. Hindi ka forever naka-queue sa customer service."],
-["Nagparamdam ang ex na parang subscription na nakalimutang i-cancel. Hello ngayon, vanish bukas.","I-archive ang chat kung puro rerun. Hindi kailangan ng bagong season ng lumang problema."],
-["Ikaw ang laging nag-aadjust ng oras at lugar. Date ba ito o ikaw ang travel coordinator?","Hayaang siya naman ang magplano. Hindi ka event organizer ng sariling lovelife."],
-["May kilig, pero mas mabilis ang heartbeat mo sa pag-check kung nag-view siya ng story kaysa sa actual na usapan.","Heart reaction lang 'yan, hindi marriage contract. Enjoy the kilig pero gamitin ang utak."],
-["May selos na walang label at tampo na walang usapan. May season pass ka sa drama pero wala kang official role.","Linawin ang status. Hindi ka nag-a-audition para sa girlfriend/boyfriend position."],
-["Puro pangako, walang follow-through. Parang trailer na paulit-ulit pero walang pelikula.","Tingnan ang gawa, hindi ang paragraph. Hindi commitment ang typing bubble."],
-["Baka ikaw ang nag-iisip ng future habang siya nag-iisip kung anong ulam. Magkaiba kayo ng tab na bukas.","I-match ang effort. Huwag mong akuin pati role niya."]
-],
-career:[
-["Ikaw ang taga-salo ng tasks habang ang iba taga-react ng thumbs up. Unofficial department mo na ang buong opisina.","Ibalik ang task sa may-ari. Hindi ka paid extra sa lahat ng department."],
-["May boss o katrabahong mahilig sa 'quick favor' na umaabot ng kalahating araw. Quick para kanino?","Linawin ang priority at deadline bago umoo. Hindi lahat ng urgent ay trabaho mo."],
-["Sweldo ang hinihintay mo pero bills ang unang nag-hi. Dumaan lang ang sahod para mag-attendance.","Unahin ang bills at budget. Hindi salary increase ang sale sa online shop."],
-["May opportunity sa work pero kailangan ng output, hindi puro 'willing to learn' sa interview.","I-update ang resume at mag-apply. Hindi ka mapo-promote ng vision board."],
-["Group project ang opisina: ikaw gumawa ng report, sila nag-present, lahat may credit. Aba, share naman sa labor.","I-document ang contributions at linawin ang roles. Hindi charity ang trabaho."],
-["May meeting na puwedeng email na lang pero lahat kayo nakaupo habang binabasa ang agenda.","Humingi ng malinaw na next steps. Hindi attendance ang achievement."],
-["May sideline na mukhang promising. Basahin muna ang terms bago mag-celebrate sa imaginary payout.","I-check ang legitimacy, oras, at bayad. Hindi lahat ng easy money ay easy."],
-["Ang dami mong trabaho pero pang-isang tao lang ang job title. May hidden expansion pack ba ang contract?","Pag-usapan ang workload at scope. Hindi unlimited plan ang employment."]
-],
-chismis:[
-["May nagkuwento ng 'secret' pero naka-CC ang buong barangay. Public announcement na, mhie.","Ihiwalay ang narinig sa may resibo. Huwag magkalat ng haka-haka."],
-["Tahimik ang GC kapag may tanong pero buhay na buhay kapag may screenshot.","Huwag mag-forward ng private messages. Kausapin ang taong involved."],
-["Mabait sa harap pero may sariling director's cut sa likod. Dalawang version ang teleserye.","Mag-observe muna. Hintayin ang buong kuwento, hindi teaser."],
-["May parinig na may quote at black background. Sana nag-message na lang kaysa nag-premiere sa My Day.","Huwag patulan ang cryptic post. Kung kailangan, kausapin nang diretso."],
-["Ikaw ang ginawang search engine, witness, at legal counsel. Wala bang honorarium?","Mag-share lang ng alam mong totoo. Hindi mo trabaho buuin ang puzzle."],
-["Lumaki ang issue dahil may nagdagdag ng 'sabi raw'. Isang chika, limang narrator, sampung plot twist.","I-check ang source. Ang 'sabi raw' ay hindi resibo."],
-["Biglang sweet ang kaibigan kapag may kailangan. Parang pop-up ad na may hinihinging favor.","Pansinin kung mutual ang friendship. Hindi ka help desk."],
-["Parehong may screenshot ang dalawang kampo pero parehong cropped. Nasaan ang full context?","Humingi ng buong context. Huwag maglabas ng verdict sa kalahating resibo."]
-],
-general:[
-["May plano kang maging productive pero nauwi sa paghiga habang hawak ang phone. Consistent ang attendance sa kama.","Pumili ng isang maliit na gawain at tapusin. Hindi kailangang ayusin ang buong buhay ngayong gabi."],
-["Sweldo o allowance pa lang, may bills nang nakaabang sa pinto. Family reunion ng due dates mo.","Unahin ang essentials at magtabi kahit kaunti. Huwag ubusin sa budol."],
-["May kamag-anak na may tanong tungkol sa buhay mo na parang quarterly performance review sa hapag-kainan.","Maghanda ng maikling sagot at palitan ang topic. Hindi public property ang timeline mo."],
-["Tatlong errands ang kailangan pero pang-isang tricycle ride lang ang energy mo. Adulting, bes.","Isa-isahin ang kailangan. Hindi ka robot na may fast-charge."],
-["May bibilhin ka raw na kailangan pero nasa cart na ang tatlong bagay na di mo alam saan gagamitin.","Maghintay bago mag-checkout. Iwan ang budol sa cart hanggang bukas."],
-["May labada na may sariling ecosystem at pinggan na parang may reunion sa lababo.","Pumili ng isang area at simulan doon. Hindi kailangan ng full house makeover."],
-["Gusto mong gumala pero mas gusto ng katawan mo ang kumot at walang kausap. Valid, mhie.","Magpahinga kung kailangan at mag-confirm nang maayos. Huwag mag-ghost ng plano."],
-["Sabay-sabay ang gutom, init, traffic, at low battery. Triple threat ang Pilipinas.","Kumain, uminom ng tubig, saka magdesisyon. Huwag mag-resolve ng life crisis nang gutom."]
-]};
+love:{
+ scene:["Ikaw na naman ang nagbubuhat ng usapan. Parang ikaw ang Wi-Fi ng relasyon.","May pa-sweet sa chat pero pag usapang label, biglang under processing.","Nagparamdam ang ex na parang subscription na nakalimutang i-cancel.","Ikaw ang laging nag-aadjust ng oras at lugar. Date ba ito o logistics?","May kilig, pero mas mabilis ang heartbeat mo sa pag-check ng story views.","May selos na walang label at tampo na walang usapan.","Puro pangako, walang follow-through. Trailer nang trailer, walang pelikula.","Ikaw ang nag-iisip ng future habang siya nag-iisip kung anong ulam.","May taong bumabalik tuwing bored at nawawala kapag may ganap."],
+ twist:["Ikaw ang nag-iinitiate, nag-aaya, at nagre-rescue ng dead air. One-person podcast ang peg.","Kapag consistency na ang topic, biglang nawawala sa signal ang kausap mo.","Old chat ang binabalikan mo na parang may hidden bonus scene. Wala, beh. Deleted scenes na 'yan.","Ikaw pa ang taga-book ng date, taga-isip ng activity, at taga-confirm. Jowa ba 'yan o client?","Isang heart react lang, may wedding playlist ka na sa utak. Kalma, Spotify.","May tampuhan pero walang umaamin. Pareho kayong may pride, walang may communication skills.","Ang effort niya parang free trial: masaya sa umpisa, biglang expired.","Hindi ka dapat nag-a-audition para sa role na dapat malinaw na in-offer sa'yo.","Baka namimiss ka nga—or baka wala lang siyang bagong ka-chat. Huwag assuming."],
+ resbak:["I-match ang effort. Hindi ka alarm clock na taga-good morning lang.","Tanungin kung ano kayo. Hindi ka forever naka-queue sa customer service.","I-archive ang chat kung puro rerun. Hindi kailangan ng bagong season.","Hayaang siya naman ang magplano. Hindi ka event organizer ng lovelife.","Emoji lang 'yan, hindi marriage contract. Observe the actual effort.","Linawin ang status. Hindi ka nag-a-audition para sa jowa position.","Tingnan ang gawa, hindi ang paragraph. Hindi commitment ang typing bubble.","Huwag mong akuin pati role niya. Dalawa dapat ang bida sa relasyon.","Matulog ka muna bago mag-reply sa ex. Hindi ka 24-hour hotline."]
+},
+career:{
+ scene:["Ikaw ang taga-salo ng tasks habang ang iba taga-react ng thumbs up.","May boss o katrabahong mahilig sa 'quick favor' na kalahating araw ang kinakain.","Sweldo ang hinihintay mo pero bills ang unang nag-hi.","May opportunity sa work pero kailangan ng output, hindi puro interview promises.","Group project ang opisina: ikaw gumawa ng report, sila nag-present.","May meeting na puwedeng email na lang pero lahat kayo nakaupo.","May sideline na mukhang promising pero basahin muna ang terms.","May deadline na naman at ikaw ang huling nakakaalam.","Ang dami mong trabaho pero pang-isang tao lang ang job title."],
+ twist:["Ikaw na ang taga-follow up, taga-ayos, at taga-explain. May hidden job description ba?","Quick para kanino, mhie? Ikaw ang nawalan ng lunch break.","Dumaan lang ang sahod para mag-attendance at magbayad ng utang.","Hindi ka mapo-promote ng vision board kung hindi mo ise-send ang application.","Lahat may credit, ikaw may overtime. Aba, share naman sa labor.","May isang nagsasalita ng 40 minutes para sabihin ang puwedeng nasa subject line.","Baka easy money nga—easy money para sa scammer.","Surprise party ang peg, ang regalo ay overtime at instant noodles.","May expansion pack ang role mo pero walang expansion sa salary."],
+ resbak:["Ibalik ang task sa may-ari. Hindi ka paid extra sa lahat ng department.","Linawin ang priority at deadline bago umoo. Hindi lahat urgent ay trabaho mo.","Unahin ang bills at budget. Hindi salary increase ang online sale.","I-update ang resume at mag-apply. Hindi ka mapo-promote ng manifesting board.","I-document ang contributions at linawin ang roles. Hindi charity ang trabaho.","Humingi ng malinaw na next steps. Hindi attendance ang achievement.","I-check ang legitimacy, oras, at bayad. Hindi lahat ng easy money ay easy.","Humingi ng realistic timeline. Hindi ka printer na instant output.","Pag-usapan ang workload at scope. Hindi unlimited plan ang employment."]
+},
+chismis:{
+ scene:["May nagkuwento ng 'secret' pero naka-CC ang buong barangay.","Tahimik ang GC kapag may tanong pero buhay na buhay kapag may screenshot.","Mabait sa harap pero may sariling director's cut sa likod.","May parinig na may quote at black background. My Day premiere na naman.","Ikaw ang ginawang search engine, witness, at legal counsel.","Lumaki ang issue dahil may nagdagdag ng 'sabi raw'.","Biglang sweet ang kaibigan kapag may kailangan na favor.","Parehong may screenshot ang dalawang kampo pero parehong cropped.","May bagong chika pero recycled na ang source."],
+ twist:["Confidential daw pero may audience na mas marami pa sa barangay assembly.","Ang bilis mag-type kapag hindi naman sila ang involved. Keyboard warrior Olympics.","Dalawang version ang teleserye at pareho pang may sariling narrator.","Kung may gustong sabihin, sana nag-message na lang kaysa nagpa-premiere.","Wala bang honorarium sa pagiging taga-fact check ng lahat?","Isang chika, limang narrator, sampung plot twist. Netflix, ikaw ba 'yan?","Parang pop-up ad: lumalabas lang kapag may hinihinging favor.","Nasaan ang full context? Hindi puwedeng cropped ang ebidensya.","Parang ulam na pangatlong init na, wala nang bagong sustansya."],
+ resbak:["Ihiwalay ang narinig sa may resibo. Huwag magkalat ng haka-haka.","Huwag mag-forward ng private messages. Kausapin ang taong involved.","Mag-observe muna. Hintayin ang buong kuwento, hindi teaser.","Huwag patulan ang cryptic post. Kung kailangan, kausapin nang diretso.","Mag-share lang ng alam mong totoo. Hindi mo trabaho buuin ang puzzle.","I-check ang source. Ang 'sabi raw' ay hindi resibo.","Pansinin kung mutual ang friendship. Hindi ka help desk.","Humingi ng buong context. Huwag maglabas ng verdict sa kalahating resibo.","Huwag nang buhayin ang lumang issue kung walang bagong facts."]
+},
+general:{
+ scene:["May plano kang maging productive pero nauwi sa paghiga habang hawak ang phone.","Sweldo o allowance pa lang, may bills nang nakaabang sa pinto.","May kamag-anak na may tanong tungkol sa buhay mo na parang quarterly review.","Tatlong errands ang kailangan pero pang-isang tricycle ride lang ang energy mo.","May bibilhin ka raw na kailangan pero tatlong budol ang nasa cart.","May labada na may sariling ecosystem at pinggan na may reunion sa lababo.","Gusto mong gumala pero mas gusto ng katawan mo ang kumot at katahimikan.","Sabay-sabay ang gutom, init, traffic, at low battery.","May goal ka pero nadidistract ka sa curated na buhay ng ibang tao online."],
+ twist:["Consistent ang attendance mo sa kama. Employee of the month!","Family reunion ng due dates mo, lahat may dalang billing statement.","Parang may HR department ang hapag-kainan na nag-a-audit ng milestones.","Adulting, bes. Maraming kailangan, konti ang battery.","Hindi mo alam saan gagamitin pero naka-add to cart na. Budol with confidence.","May sariling barangay na ang lababo mo. May kapitan na ba 'yang pinggan?","Valid ang pahinga, hindi ka required maging available sa lahat.","Triple threat ang Pilipinas. Pati panahon may attitude.","Ang feed nila curated; ang kusina mo may hugasin. Reality check."],
+ resbak:["Pumili ng isang maliit na gawain at tapusin. Hindi kailangang ayusin ang buong buhay ngayong gabi.","Unahin ang essentials at magtabi kahit kaunti. Huwag ubusin sa budol.","Maghanda ng maikling sagot at palitan ang topic. Hindi public property ang timeline mo.","Isa-isahin ang kailangan. Hindi ka robot na may fast-charge.","Maghintay bago mag-checkout. Iwan ang budol sa cart hanggang bukas.","Pumili ng isang area at simulan doon. Hindi kailangan ng full house makeover.","Magpahinga kung kailangan at mag-confirm nang maayos. Huwag mag-ghost ng plano.","Kumain, uminom ng tubig, saka magdesisyon. Huwag mag-life crisis nang gutom.","Ibalik ang focus sa sarili mong progress. Hindi competition ang bawat My Day."]
+}
+};
 function buildInterpretation(card,index,cat){
  const title=card.charotName||card.caption||"ANG GANAP";
  const bank=categoryJokes[cat]||categoryJokes.general;
- const pair=bank[(Number(card.id)||0)%bank.length];
- return {position:positions[index],categoryLine:categoryInfo[cat]?.label||"",interpretation:"Ang chika ng "+title+": "+pair[0],advice:pair[1],meaning:"",title,savage:""};
+ const id=Math.abs(Number(card.id)||0);
+ const interpretation="Ang chika ng "+title+": "+bank.scene[id%9]+" "+bank.twist[Math.floor(id/9)%9];
+ const advice=bank.resbak[id%9];
+ return {position:positions[index],categoryLine:categoryInfo[cat]?.label||"",interpretation,advice,meaning:"",title,savage:""};
 }
 function renderResults(){
  reveal.disabled=true;
