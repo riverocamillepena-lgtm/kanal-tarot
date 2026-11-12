@@ -104,3 +104,10 @@ footer strong{color:var(--lime);font-family:"DM Sans",sans-serif;font-weight:100
 .actual-card-name{margin:3px 0 8px;color:#f8d9ec;font-size:10px;font-weight:800;letter-spacing:1.2px;text-transform:uppercase}
 
 .reveal-status{grid-column:1/-1;text-align:center;color:#d8bd82;font-size:11px;letter-spacing:.3px;line-height:1.7;padding:15px;border:1px dashed #c9a45b55;background:#21172c;border-radius:10px}.result-card{grid-column:1/-1;width:100%;max-width:680px;margin:0 auto}
+
+
+/* V7: force result visibility even when hidden-state styles conflict */
+.results[hidden]{display:none!important}
+.results:not([hidden]){display:block!important;visibility:visible!important;opacity:1!important}
+#result-cards{display:grid!important;visibility:visible!important;opacity:1!important}
+#result-cards>.result-card,#result-cards>.reveal-status{display:block!important;visibility:visible!important;opacity:1!important}
