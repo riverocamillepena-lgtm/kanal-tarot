@@ -35,8 +35,8 @@ function buildInterpretation(card,index,cat){
  // suit boilerplate so each card's individual message stays in front.
  let essence=String(card.essence||"").trim();
  let guidance=String(card.guidance||"").trim();
- essence=essence.replace(/\\s+Sa (?:goals at creative projects mo|love and relationships mo|emotional world mo|work and finances mo),?[^.]*\\.?/gi,"").trim();
- guidance=guidance.replace(/\\s+(?:Huwag hayaang puro hype ang gasolina|Huwag mong madaliin ang proseso|Bigyan ng oras at aksyon ang pangarap mo)\\.?/gi,"").trim();
+ essence=essence.replace(/\s+Sa (?:goals at creative projects mo|love and relationships mo|emotional world mo|work and finances mo),?[^.]*\.?/gi,"").trim();
+ guidance=guidance.replace(/\s+(?:Huwag hayaang puro hype ang gasolina|Huwag mong madaliin ang proseso|Bigyan ng oras at aksyon ang pangarap mo)\.?/gi,"").trim();
  const frames={
   love:[
    "Balikan ang pattern sa puso mo: saan nagsimula ang ganitong klaseng kilig o sakit?",
