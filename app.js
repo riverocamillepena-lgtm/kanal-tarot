@@ -35,7 +35,7 @@ function buildInterpretation(card,index,cat){
  const savage=card.oneLiner||"";
  const id=Number.isInteger(card.id)?card.id:0;
 
- const interpretation=essence||"Walang chika sa barahang ito—pakicheck ang card data.";
+ const interpretation=[savage,essence].filter(Boolean).join(" ")||"Walang chika sa barahang ito—pakicheck ang card data.";
  const advice=guidance||"Walang resbak sa barahang ito. Baka nag-break muna ang marites.";
  return {position:positions[index],categoryLine:"",interpretation,advice,meaning:card.meaning||"",title,savage};
 }
@@ -64,7 +64,7 @@ function renderResults(){
   const r=buildInterpretation(card,i,chosenCategory);
   const article=document.createElement("article");
   article.className="result-card reveal-pending";
-  article.innerHTML=`<button class="flip-card" type="button" aria-label="Flip card to reveal the reading"><span class="flip-inner"><span class="flip-face flip-front"><span class="front-art">${artSvg(card)}</span></span><span class="flip-face flip-back"><span class="back-position">${esc(positions[i])}</span><strong class="back-title">${esc(r.title)}</strong><span class="meme-caption">“${esc(r.savage)}”</span><span class="meaning-label">ETO ANG CHIKA, HUWAG KANG MA-SHOCK</span><span class="back-copy">${esc(r.interpretation)}</span><span class="meaning-label">HETO ANG RESBAK, BEH</span><span class="back-copy">${esc(r.advice)}</span><span class="flip-hint">TAP MO PARA SA CHIKA ↻</span></span></span></button>`;
+  article.innerHTML=`<button class="flip-card" type="button" aria-label="Flip card to reveal the reading"><span class="flip-inner"><span class="flip-face flip-front"><span class="front-art">${artSvg(card)}</span></span><span class="flip-face flip-back"><span class="back-position">${esc(positions[i])}</span><strong class="back-title">${esc(r.title)}</strong><span class="meaning-label">ETO ANG MEME READING, BES</span><span class="back-copy">${esc(r.interpretation)}</span><span class="meaning-label">HETO ANG RESBAK, BEH</span><span class="back-copy">${esc(r.advice)}</span><span class="flip-hint">TAP MO PARA SA CHIKA ↻</span></span></span></button>`;
   article.querySelector(".flip-card").addEventListener("click",()=>{const flip=article.querySelector(".flip-card");flip.classList.toggle("is-flipped");flip.setAttribute("aria-label",flip.classList.contains("is-flipped")?"Show card artwork":"Flip card to read its meaning");});
   host.insertBefore(article,status);
   article.style.display="block";
