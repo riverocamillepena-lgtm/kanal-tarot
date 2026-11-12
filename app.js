@@ -1,5 +1,5 @@
 let CARDS=[];
-fetch("cards.json?v=20261112-card-specific-v2").then(r=>{if(!r.ok)throw new Error("Could not load tarot deck");return r.json();}).then(data=>{CARDS=data;initTarot();}).catch(()=>{document.querySelector("#stage-instruction").textContent="The baraha are taking a quick coffee break. Refresh to try again.";});
+fetch("cards.json?v=20261112-kanal-voice-v3").then(r=>{if(!r.ok)throw new Error("Could not load tarot deck");return r.json();}).then(data=>{CARDS=data;initTarot();}).catch(()=>{document.querySelector("#stage-instruction").textContent="The baraha are taking a quick coffee break. Refresh to try again.";});
 function initTarot(){
 const categoryInfo={
  love:{label:"Love Chika",past:"What shaped your heart",present:"Where your heart is now",future:"The direction love may take",tone:"Sa puso at connections mo"},
@@ -27,23 +27,112 @@ function renderSlots(){selectedRow.innerHTML=positions.map((p,i)=>`<div class="s
 shuffleBtn.addEventListener("click",()=>{fan.querySelectorAll(".tarot-card").forEach((c,i)=>{c.classList.remove("shuffle");void c.offsetWidth;c.style.animationDelay=`${i*12}ms`;c.classList.add("shuffle");});setTimeout(makeDeck,560);});
 category.forEach(btn=>btn.addEventListener("click",()=>{category.forEach(x=>x.classList.remove("active"));btn.classList.add("active");chosenCategory=btn.dataset.category;}));
 function buildInterpretation(card,index,cat){
- const name=card.name||'Itong baraha';
- const essence=String(card.essence||'').trim();
- const meaning=String(card.meaning||'').trim();
- const guidance=String(card.guidance||'').trim();
- const lens={love:'Sa lovelife mong parang teleseryeng walang commercial break',career:'Sa career at pera mong minsan gusto mo nang i-resign pati kaluluwa mo',general:'Sa buhay mong akala mo tahimik na, may bagong episode na naman',chismis:'Sa chismis department, kung saan lahat may resibo pero walang umaamin'}[cat];
+ const name=card.name||"Itong baraha";
+ const essence=String(card.essence||"").trim();
+ const guidance=String(card.guidance||"").trim();
+ const lens={
+  love:"LOVE LIFE CHECK: mhie, hindi ito wattpad. Realidad ang usapan, hindi puro kilig sa sariling imagination.",
+  career:"TRABAHO AT PERA CHECK: accla, hindi ka pinanganak para maging unpaid extra sa sarili mong buhay.",
+  general:"BUHAY CHECK: beh, anong episode na naman 'to? Himayin natin bago ka mag-my day ng 'I'm done'.",
+  chismis:"CHISMIS CHECK: mga mare, lapag ang tea pero pakitabi ang fake news. Hindi tayo barangay CCTV."
+ }[cat];
  const stage={
-  love:['NOON, BEH: eto ang pinagmulan ng kalat sa puso mo.','NGAYON ANG GANAP: ito ang eksenang ayaw mong i-seen pero kailangan mong harapin.','NEXT EPISODE: ito ang puwedeng kahinatnan kung itutuloy mo ang ganitong galawan.'],
-  career:['FLASHBACK: may dating desisyon o habit na hanggang ngayon may resibo pa rin.','LIVE UPDATE: ito ang current ganap sa trabaho, pera, at pangarap mo.','COMING SOON: ito ang direksyong bubukas depende sa next move mo.'],
-  general:['ORIGIN STORY: dito nagsimula ang character development mong walang consent.','CURRENT EPISODE: eto ang plot na nasa harap mo ngayon, beh.','SEASON FINALE ENERGY: ito ang puwedeng sumunod kapag pinili mong kumilos.'],
-  chismis:['BACKSTORY MUNA: bago ka mag-share sa GC, eto ang ugat ng issue.','BREAKING CHIKA: eto ang detalyeng dapat mong silipin ngayon.','ABANGAN ANG PASABOG: eto ang posibleng lumitaw kapag nagkalinawan na.']
+  love:["NOON: balikan natin kung saan nagsimula ang pagka-marupok o pagka-walang pake mo.","NGAYON: eto ang eksenang nasa harap mo. Huwag mong i-filter para lang bagay sa delulu mo.","SUSUNOD: hindi ito spoiler na sure mangyayari; ito ang direksyong binubuksan ng next move mo."],
+  career:["NOON: may dating desisyon o kalokohan sa trabaho na may ambag sa sitwasyon ngayon.","NGAYON: eto ang current ganap sa trabaho, pera, at pangarap. Harap-harapan na, beh.","SUSUNOD: eto ang puwedeng kahinatnan kapag ito ang pinili mong galawan."],
+  general:["NOON: dito nanggaling ang plot na hanggang ngayon dala-dala mo. Kaloka, may sequel pa.","NGAYON: eto ang current episode. Walang commercial break, kaya makinig ka muna.","SUSUNOD: ito ang posibleng next episode depende sa desisyon mo, hindi sa wishful thinking."],
+  chismis:["BACKSTORY: bago ka mag-drop ng 'I knew it', eto muna ang pinanggalingan.","BREAKING CHIKA: ito ang detalyeng dapat mong silipin. Huwag puro kutob, mhie.","NEXT ISSUE: ito ang puwedeng mabuking o lumabas kapag nagtanong ka nang tama."]
  }[cat][index];
- const title=card.caption||('Ang kalat ni '+name);
- const roasts=['Beh, hindi ito dekorasyon sa mesa. May pinupunto to.','Hindi ka pinatawag para husgahan—pinatawag ka para matauhan, mhie.','Paki-upo ang sarili. May sinasabi ang baraha at hindi siya nagpa-appointment.'];
- const savage=(card.caption||name)+' — '+roasts[index];
- const interpretation=lens+'. '+stage+' '+essence+' At para walang ligoy-ligoy: '+meaning+'.';
- const advice=guidance+' '+({love:'Tigilan ang pag-romanticize ng bare minimum. Kung gusto, dapat may gawa. Hindi puro seen-zoned na pangako.',career:'Galaw-galaw rin, accla. Isang konkretong hakbang muna; hindi mababayaran ng manifestation ang bills mo.',general:'Piliin mo ang sarili mo pero samahan ng aksyon. Hindi lahat nadadaan sa dasurv ko ng peace habang ikaw rin ang gumugulo.',chismis:'Huwag magpakalat ng hearsay na parang may presscon ka. Resibo muna bago bardagulan.'}[cat]);
- return {position:positions[index],categoryLine:stage,interpretation,advice,meaning,title,savage};
+ const roasts=[
+ "Beh, nag-start ka na agad kahit wala pang terms and conditions. Kalma, hindi lahat ng pinto dapat pasukin.",
+ "Ang dami mong talent, mhie. Sayang kung hanggang aesthetic notes app lang ang ambag.",
+ "May kutob ka na, pero detective ka ba o gumagawa ka lang ng sariling teleserye?",
+ "Ikaw ang nagbibigay ng alaga sa lahat. Sino ang mag-aalaga sa'yo, teh, si Lord na lang ba?",
+ "Hindi ka CEO ng pagkatao ng ibang tao. Ibalik ang control freak sa packaging.",
+ "May advice ang lahat, pati kapitbahay na hindi mo kilala. Piliin ang may utak at resibo.",
+ "Kilig is temporary, consistency ang tunay na pogi. Huwag kang bumili ng trailer na walang pelikula.",
+ "Ang bilis mong mag-move, parang may hinahabol na libreng pamasahe. May direksyon ba?",
+ "Mabait ka, oo. Pero hindi ka basahan na may feelings, mhie.",
+ "Nag-airplane mode ka na naman? Sige, basta huwag mong tawaging healing ang pag-iwas sa lahat.",
+ "Plot twist na naman? Parang ikaw ang subscription ng universe sa drama.",
+ "Resibo o wala. Hindi puwedeng 'trust me, beh' ang evidence sa buhay.",
+ "Naka-loading ka, pero hindi ibig sabihin sira ka. Baka kailangan mo lang mag-restart.",
+ "Tapos na ang season, teh. Huwag nang i-renew ang kontratang ikaw lang ang lugi.",
+ "Hindi ka Swiss Army knife. Hindi lahat ng problema ikaw ang sasalo.",
+ "Red flag na may LED lights, pero pinili mo pa ring i-follow. Gising, accla.",
+ "Gumuho ang delulu condo mo. At least wala nang monthly amortization sa kasinungalingan.",
+ "May liwanag sa dulo, bes. Huwag mo lang harangan ng sarili mong kalat.",
+ "Overthink ka nang overthink, may writers' room ka na sa utak pero walang matinong script.",
+ "Finally, may panalo! Screenshot mo, deserve mong ipamukha sa mga nang-down.",
+ "Ilang beses ka na bang binalikan ng lesson na 'to? May loyalty card ka na yata.",
+ "Achievement unlocked. Puwede nang magyabang nang konti, hindi ka naman charity case.",
+ "May apoy ka, pero nasaan ang gawa? Hindi project ang pag-iisip ng project.",
+ "Planning ka nang planning, beh. May deadline ba o pang-display lang ang vision board?",
+ "May nasimulan ka na. Huwag mong iwan sa ere na parang ka-talking stage.",
+ "May dahilan para mag-celebrate. Huwag mong hintaying may magbigay ng permission.",
+ "Lahat gustong bida. Ikaw, gusto mo ba ng result o dagdag episode ng away?",
+ "May recognition na possible. Huwag mong i-deny ang galing mo para lang humble kuno.",
+ "Ipaglaban mo ang sarili mo, pero hindi bawat comment section kailangan mong gawing boxing ring.",
+ "Sunod-sunod ang ganap. Paki-charge ang sarili bago ka tuluyang maging low-batt na marites.",
+ "Pagod ka na, pero hindi ka kailangang maging security guard ng buong mundo.",
+ "Ikaw na naman ang taga-buhat? May mga kamay din yang mga kasama mo, gamitin nila.",
+ "Excited ka sa bagong idea. Sana hindi ito maging folder number 48 na 'final_final_v3'.",
+ "Ang tapang mong sumugod. Sana may plano ka rin pagdating, hindi puro entrance.",
+ "May dating ka, mhie. Gamitin sa sariling glow-up, hindi sa pag-aagawan ng spotlight.",
+ "Leader ka, hindi megaphone. Hindi kailangang naka-all caps para sundin ka.",
+ "May bagong kilig. Huwag munang maghanap ng wedding venue sa isang 'good morning'.",
+ "Pareho kayong may feelings? Ay wow. Ngayon, pareho rin ba kayong marunong mag-effort?",
+ "Lumabas ka naman sa bahay. Hindi lahat ng chika makukuha sa pag-stalk ng stories.",
+ "Baka hindi ka cold, baka pagod ka lang sa paulit-ulit na kabobohan. Valid, mhie.",
+ "Umiyak kung iiyak. Hindi ka press release na kailangang laging presentable.",
+ "Nagparamdam ang past. Huwag agad mag-reply na parang may 24-hour promo.",
+ "Ang daming choices, pero puro fantasy. Pumili ka base sa gawa, hindi sa imaginary wedding vows.",
+ "Kung aalis ka, umalis nang may plano. Hindi kailangang gawing dramatic exit ang self-respect.",
+ "May wish na natupad. Huwag mong sirain sa kakahanap ng bagong problema.",
+ "Hindi lahat ng happy ending may matching surname. Minsan peace lang, panalo na.",
+ "Cute ang apology, pero nasaan ang pagbabago? Hindi collectible ang sorry.",
+ "Romantic ka nga, pero huwag mong gawing free trial ang standards mo.",
+ "Empathy mo pang-unli. Pero hindi ka customer support ng buong barangay.",
+ "Kalmado ka sa labas, pero sabihin mo rin ang kailangan mo. Hindi mind reader ang mga tao.",
+ "May katotohanang gustong pumasok. Buksan ang pinto, huwag puro subtweet.",
+ "Ayaw mong pumili? Sige, pero huwag kang magulat kung ang buhay ang pumili para sa'yo.",
+ "Masakit ang truth, pero hindi ka naman ginawa para maging permanenteng tanga sa sitwasyon.",
+ "Pahinga muna, mhie. Hindi ka required sumagot sa lahat ng taong walang ambag.",
+ "Gusto mong manalo sa argumento, pero magkano ang peace of mind mo ngayon?",
+ "Umaalis ka na sa gulo. Huwag mong isama ang buong GC sa evacuation.",
+ "May tinatago o kulang ang kwento. Huwag magtiwala sa taong puro 'secret lang natin'.",
+ "Hindi ka nakakulong sa sitwasyon; baka takot lang ang ginawang rehas.",
+ "Alas-dose na, beh. Hindi ito oras para gumawa ng 17 alternate endings.",
+ "Tapos na. Huwag nang mag-appeal sa taong matagal nang nag-file ng resignation sa buhay mo.",
+ "Marami kang tanong, Sherlock. Pero huwag gawing background check ang first date.",
+ "Mabilis ka kumilos, pero minsan utak mo naiwan sa loading screen.",
+ "Matalas ka, mhie. Hindi kailangang gawing kutsilyo ang bawat sentence.",
+ "Hindi porke tama ka, kailangan mong gawing courtroom ang bawat usapan.",
+ "May chance kumita. Huwag ubusin sa checkout bago pa dumating ang sweldo.",
+ "Multitasking ka nang multitasking, pati stress mo naka-premium subscription na.",
+ "May team pala. I-delegate mo naman, hindi ka one-person production house.",
+ "Nag-iipon ka o nagtatago sa takot? Magkaiba 'yon, accla.",
+ "Hindi ka kulang bilang tao dahil kapos ang budget. Huwag mong i-gaslight ang sarili mo.",
+ "Give and take dapat. Hindi ikaw ang GCash ng lahat ng tao.",
+ "May progress kahit mabagal. Huwag mong hukayin ang tanim kada limang minuto.",
+ "Practice makes better, mhie. Hindi sapat ang tutorial na naka-save pero never pinanood.",
+ "Pinaghirapan mo 'yan. I-enjoy mo, hindi puro guilt ang kasama sa success.",
+ "Mag-isip pangmatagalan. Hindi lahat ng deserve mo kailangang i-checkout today.",
+ "Beginner ka pa lang, hindi ka failure. Huwag mong i-speedrun ang mastery.",
+ "Hindi flashy pero consistent. Sana all, pati mga ka-talking stage mo ganyan.",
+ "Alagaan ang pera at sarili. Hindi ka walking ayuda station.",
+ "Mayaman sa potential, pero dapat may utak din sa paghawak ng resources."
+ ];
+ const id=Number.isInteger(card.id)?card.id:0;
+ const title=card.caption||("Ang kalat ni "+name);
+ const savage=(card.caption||name)+" — "+roasts[((id%roasts.length)+roasts.length)%roasts.length];
+ const interpretation=lens+" "+stage+" "+essence;
+ const advice=guidance+" "+({
+  love:"At please, mhie: bare minimum is not a love language. Kung gusto ka, hindi ka pahuhulain na parang raffle.",
+  career:"Gumalaw nang may plano. Hindi sapat ang 'claiming it' kung hindi mo pa binubuksan ang laptop.",
+  general:"Pumili ng isang totoong aksyon. Hindi ka mabubuhay sa puro 'soon' at screenshots ng quotes.",
+  chismis:"Fact-check bago bardagulan. Hindi lahat ng narinig mo kailangan mong gawing breaking news."
+ }[cat]);
+ return {position:positions[index],categoryLine:stage,interpretation,advice,meaning:essence,title,savage};
 }
 function getReadingProfile(){
  const birthday=document.querySelector("#birthdate").value;
@@ -70,7 +159,7 @@ function profileReadingNote(profile,cat,index){
  if(profile.age!==null){const band=profile.age<20?"early-life choices and learning":profile.age<30?"exploration, identity, and building foundations":profile.age<40?"priorities, growth, and sustainable commitments":profile.age<50?"reassessment, stability, and meaningful change":"experience, perspective, and what deserves your energy";parts.push("Life-stage lens: "+band+".");}
  return parts.length?"Personal lens — "+parts.join(" "):"";
 }
-function renderResults(){const info=categoryInfo[chosenCategory];const readerProfile=getReadingProfile();document.querySelector("#result-category").textContent=info.label+" · "+info.tone;document.querySelector("#result-cards").innerHTML=picked.map((card,i)=>{const r=buildInterpretation(card,i,chosenCategory);return `<article class="result-card reveal-pending"><div class="result-position">${positions[i]}</div><div class="result-art">${artSvg(card)}</div><div><h3>${r.title}</h3><div class="actual-card-name">${card.name}</div><div class="meme-caption">“${r.savage}”</div></div><div class="meaning-label">ANO ANG PINAGSASABI NITONG BARAHANG ITO?</div><p>${r.meaning}</p><div class="meaning-label">ETO ANG CHIKA, WAG KANG MAGPANGGAP NA DI KA NAKINIG</div><p>${r.interpretation}</p><div class="meaning-label">ANO NA, BEH? GALAW-GALAW DIN</div><p>${r.advice}</p></article>`;}).join("");
+function renderResults(){const info=categoryInfo[chosenCategory];const readerProfile=getReadingProfile();document.querySelector("#result-category").textContent=info.label+" · "+info.tone;document.querySelector("#result-cards").innerHTML=picked.map((card,i)=>{const r=buildInterpretation(card,i,chosenCategory);return `<article class="result-card reveal-pending"><div class="result-position">${positions[i]}</div><div class="result-art">${artSvg(card)}</div><div><h3>${r.title}</h3><div class="actual-card-name">${card.name}</div><div class="meme-caption">“${r.savage}”</div></div><div class="meaning-label">ANONG KALAT ANG BITBIT NITO, MHIE?</div><p>${r.meaning}</p><div class="meaning-label">ETO ANG RESIBO. BASAHIN MO, HUWAG PURO DELULU</div><p>${r.interpretation}</p><div class="meaning-label">ANO NA, ACcla? KUMILOS KA NAMAN</div><p>${r.advice}</p></article>`;}).join("");
 const summary='MGA ACCLA, ITO ANG GROUP CHAT RECAP! Una, '+picked[0].name+' ang naglabas ng lumang ganap: '+picked[0].essence+' Sunod, si '+picked[1].name+' ang naglatag ng current issue: '+picked[1].essence+' At ang huling pasabog ay si '+picked[2].name+': '+picked[2].essence+' FINAL VERDICT, MGA BEH: '+picked[2].guidance+' Hindi ito utos ng universe—ikaw pa rin ang may hawak ng manibela. Pero jusko, huwag mong sabihing walang warning.';
 document.querySelector("#summary-text").textContent=summary;document.querySelector("#profile-reading-note").textContent=profileReadingNote(readerProfile,chosenCategory,1);
 const q=document.querySelector("#question").value.trim();document.querySelector("#question-echo").textContent=q?`Tanong mo: “${q}” — eto ang baraha’s two cents. Hindi ito court ruling, bes.`:"Disclaimer: tarot lang ito, hindi memo from the universe. Ikaw pa rin ang may final say.";
