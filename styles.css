@@ -88,3 +88,15 @@ footer{background:#0d0612;border-top:2px solid #ff4fa355}
 footer p{color:#f6c4e2;font-family:"DM Sans",sans-serif;font-weight:700}
 footer strong{color:var(--lime);font-family:"DM Sans",sans-serif;font-weight:1000}
 @media(max-width:620px){.hero h1{font-size:clamp(43px,12vw,64px);letter-spacing:-2px}.intro-strip p{font-size:14px}.category{border-radius:12px}.result-card p{font-size:11px}}
+
+
+/* PAISA-ISANG REVEAL + MARITES BESTIE ENERGY */
+.result-card{transform-style:preserve-3d;perspective:900px;transition:opacity .5s ease,transform .65s cubic-bezier(.2,.8,.2,1),filter .5s ease}
+.result-card.reveal-pending{opacity:0;transform:rotateY(82deg) translateY(22px) scale(.94);filter:blur(5px);pointer-events:none}
+.result-card.reveal-in{opacity:1;transform:rotateY(0) translateY(0) scale(1);filter:none;animation:kanalReveal .75s cubic-bezier(.2,.8,.2,1) both}
+@keyframes kanalReveal{0%{opacity:0;transform:rotateY(82deg) translateY(22px) scale(.94);filter:blur(5px)}65%{opacity:1;transform:rotateY(-7deg) translateY(-4px) scale(1.015);filter:blur(0)}100%{opacity:1;transform:rotateY(0) translateY(0) scale(1);filter:none}}
+.result-card .meme-caption{font-size:13px;line-height:1.55;color:var(--lime);text-shadow:0 0 12px #d7ff5433}
+.summary-box{position:relative;overflow:hidden}
+.summary-box:after{content:"PLOT TWIST";position:absolute;right:16px;top:13px;color:#ff9bcf;border:1px solid #ff4fa3;padding:5px 9px;border-radius:999px;font-size:9px;font-weight:1000;letter-spacing:1px;transform:rotate(7deg)}
+#summary-text{font-size:14px;line-height:1.9}
+@media(prefers-reduced-motion:reduce){.result-card.reveal-pending{opacity:1;transform:none;filter:none}.result-card.reveal-in{animation:none}}
