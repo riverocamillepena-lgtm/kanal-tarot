@@ -55,7 +55,7 @@ function buildInterpretation(card,index,cat){
   chismis:["Mga accla, ilabas ang resibo pero huwag mag-imbento.","Ay mhie, may tea—but facts muna bago chika.","Group chat energy ito, pero discernment pa rin ang puhunan."]
  };
  const punch=kanalOpeners[cat][(String(card.id||name).length+index)%kanalOpeners[cat].length];
- const interpretation=[punch,lens,essence,cardContext,rankContext].filter(Boolean).join(" ");
+ const interpretation=[punch,essence,lens,cardContext,rankContext].filter(Boolean).join(" ");
  const advice=guidance?guidance+" Bes, advice lang 'to—ikaw pa rin ang masusunod.":"Huminga muna, bes. Tingnan ang buong sitwasyon at piliin ang hakbang na kaya mong panindigan.";
  return {position,categoryLine:lens,interpretation,advice,meaning};
 }
