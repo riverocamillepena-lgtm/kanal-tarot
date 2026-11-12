@@ -143,6 +143,7 @@ function profileReadingNote(profile,cat,index){
  return parts.length?"Personal lens — "+parts.join(" "):"";
 }
 function renderResults(){
+ reveal.disabled=true;
  revealTimers.forEach(clearTimeout);revealTimers=[];
  const info=categoryInfo[chosenCategory];
  const readerProfile=getReadingProfile();
