@@ -2,10 +2,10 @@ let CARDS=[];
 fetch("cards.json?v=20261112-profile-reading").then(r=>{if(!r.ok)throw new Error("Could not load tarot deck");return r.json();}).then(data=>{CARDS=data;initTarot();}).catch(()=>{document.querySelector("#stage-instruction").textContent="The baraha are taking a quick coffee break. Refresh to try again.";});
 function initTarot(){
 const categoryInfo={
- love:{label:"Love Reading",past:"What shaped your heart",present:"Where your heart is now",future:"The direction love may take",tone:"Sa puso at connections mo"},
- career:{label:"Career Reading",past:"The work that brought you here",present:"Your current career energy",future:"The next professional direction",tone:"Sa trabaho, pera, at ambitions mo"},
- general:{label:"General Life Reading",past:"The chapter behind you",present:"Your current life lesson",future:"The road opening ahead",tone:"Sa bigger picture ng buhay mo"},
- chismis:{label:"Chismis Reading",past:"The backstory",present:"What is happening beneath the surface",future:"What may come to light",tone:"Sa tea, truth, at mga ganap sa paligid mo"}
+ love:{label:"Love Chika",past:"What shaped your heart",present:"Where your heart is now",future:"The direction love may take",tone:"Sa puso at connections mo"},
+ career:{label:"Career Chika",past:"The work that brought you here",present:"Your current career energy",future:"The next professional direction",tone:"Sa trabaho, pera, at ambitions mo"},
+ general:{label:"Life Chika",past:"The chapter behind you",present:"Your current life lesson",future:"The road opening ahead",tone:"Sa bigger picture ng buhay mo"},
+ chismis:{label:"Chismis Central",past:"The backstory",present:"What is happening beneath the surface",future:"What may come to light",tone:"Sa tea, truth, at mga ganap sa paligid mo"}
 };
 const positions=["PAST · PINANGGALINGAN","PRESENT · KASALUKUYAN","FUTURE · SUSUNOD NA DIREKSYON"];
 const category=document.querySelectorAll(".category");
@@ -48,8 +48,15 @@ function buildInterpretation(card,index,cat){
  };
  const cardContext=suit?suitLens[suit]||"": "";
  const rankContext=rank==="Ace"?"Bagong simula ang diin ng baraha.":rank==="Two"?"May pagpili o dalawang direksyong kailangang timbangin.":rank==="Three"?"May pag-unlad o resulta na nagsisimula nang makita.":rank==="Four"?"Stability at pundasyon ang sinusubok.":rank==="Five"?"May hamon o friction na kailangang harapin.":rank==="Six"?"May adjustment, tulong, o pag-usad matapos ang challenge.":rank==="Seven"?"Kailangan ng patience at pag-assess kung sulit ang effort.":rank==="Eight"?"Consistency, practice, at aktuwal na pagkilos ang susi.":rank==="Nine"?"Malapit na sa milestone, pero kailangan pa ring alagaan ang sarili.":rank==="Ten"?"Umaabot sa completion o peak ang isang cycle.":rank==="Page"?"Curiosity at pagiging handang matuto ang kailangan.":rank==="Knight"?"Action at commitment ang sinusukat.":rank==="Queen"?"Maturity at maingat na paghawak sa sitwasyon ang diin.":rank==="King"?"Leadership, accountability, at mastery ang hamon.":"";
- const interpretation=[lens,essence,cardContext,rankContext].filter(Boolean).join(" ");
- const advice=guidance||"Huminto sandali, tingnan ang buong sitwasyon, at pumili ng hakbang na kaya mong panindigan.";
+ const kanalOpeners={
+  love:["Ate ko, puso mo ba 'yan o public service hotline?","Mhie, kilig is cute pero consistency ang tunay na love language.","Besh, pakinggan ang baraha bago ka mag-double text."],
+  career:["Work smart, hindi work martyr, accla.","Mhie, hindi ka office appliance na dapat laging naka-on.","Kung puro pagod at walang growth, kailangan nang mag-usap."],
+  general:["Main character ka, pero kailangan mo ring basahin ang script.","Besh, plot twist man ito, hindi ibig sabihing wala kang choice.","Kalma, mhie. Hindi lahat ng problema kailangan i-solve bago mag-merienda."],
+  chismis:["Mga accla, ilabas ang resibo pero huwag mag-imbento.","Ay mhie, may tea—but facts muna bago chika.","Group chat energy ito, pero discernment pa rin ang puhunan."]
+ };
+ const punch=kanalOpeners[cat][(String(card.id||name).length+index)%kanalOpeners[cat].length];
+ const interpretation=[punch,lens,essence,cardContext,rankContext].filter(Boolean).join(" ");
+ const advice=guidance?guidance+" Bes, advice lang 'to—ikaw pa rin ang masusunod.":"Huminga muna, bes. Tingnan ang buong sitwasyon at piliin ang hakbang na kaya mong panindigan.";
  return {position,categoryLine:lens,interpretation,advice,meaning};
 }
 function getReadingProfile(){
@@ -78,7 +85,7 @@ function profileReadingNote(profile,cat,index){
  return parts.length?"Personal lens — "+parts.join(" "):"";
 }
 function renderResults(){const info=categoryInfo[chosenCategory];const readerProfile=getReadingProfile();document.querySelector("#result-category").textContent=info.label+" · "+info.tone;document.querySelector("#result-cards").innerHTML=picked.map((card,i)=>{const r=buildInterpretation(card,i,chosenCategory);return `<article class="result-card"><div class="result-position">${positions[i]}</div><div class="result-art">${artSvg(card)}</div><div><h3>${card.name}</h3><div class="meme-caption">“${card.caption}”</div></div><div class="meaning-label">Tarot meaning, with konting kalat</div><p>${r.meaning}</p><div class="meaning-label">Ang chika ng baraha</div><p>${r.interpretation}</p><div class="meaning-label">Gawin mo 'to, beh</div><p>${r.advice}</p></article>`;}).join("");
-const summary=`ANG MARITES REPORT: ${picked[0].name} ang backstory; ${picked[1].name} ang current ganap; ${picked[2].name} ang possible next episode. ${picked[1].guidance} ${chosenCategory==="chismis"?"Reminder: chika pa lang ito, hindi sworn affidavit. Verify bago magkalat.":"Take the advice, leave the drama. Ikaw pa rin ang director ng buhay mo, bes."}`;
+const summary=`MGA ACCLA, ETO ANG CHIKA! ${picked[0].name} ang backstory; ${picked[1].name} ang current ganap; ${picked[2].name} ang next episode. ${picked[1].guidance} ${chosenCategory==="chismis"?"Reminder: chika pa lang ito, hindi sworn affidavit. Resibo muna bago kalat, mhie.":"Take the advice, leave the drama. Ikaw ang director ng buhay mo, bes—hindi ang ex mo."}`;
 document.querySelector("#summary-text").textContent=summary;document.querySelector("#profile-reading-note").textContent=profileReadingNote(readerProfile,chosenCategory,1);
 const q=document.querySelector("#question").value.trim();document.querySelector("#question-echo").textContent=q?`Tanong mo: “${q}” — eto ang baraha’s two cents. Hindi ito court ruling, bes.`:"Disclaimer: tarot lang ito, hindi memo from the universe. Ikaw pa rin ang may final say.";
 lastReading={category:info.label,cards:picked.map((c,i)=>({name:c.name,position:positions[i],caption:c.caption,meaning:c.meaning,interpretation:buildInterpretation(c,i,chosenCategory).interpretation,advice:c.guidance})),summary,question:q};
