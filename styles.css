@@ -24,3 +24,67 @@
 /* KANAL TAROT celestial card back */
 .tarot-card{background:#100b08 url("assets/kanal-tarot-card-back.svg") center/cover no-repeat!important;border:1px solid #d9b46d!important;padding:0!important}
 .tarot-card:before,.tarot-card:after{display:none!important;content:none!important}
+
+/* LOUD KANAL BAKLA GENG-GENG VISUAL IDENTITY */
+:root{--hot:#ff4fa3;--lime:#d7ff54;--violet:#7b35c9}
+body{background:#120817;color:#fff0fa}
+.starfield{opacity:.95;background-image:radial-gradient(2px 2px at 15% 18%,#ff4fa3 99%,transparent),radial-gradient(2px 2px at 72% 32%,#d7ff54 99%,transparent),radial-gradient(1px 1px at 41% 78%,#fff 99%,transparent),radial-gradient(2px 2px at 88% 85%,#ff4fa3 99%,transparent);background-size:230px 220px,290px 250px,330px 280px,390px 330px}
+.topbar{background:#17091feF;border-bottom:1px solid #ff4fa366}
+.brand-mini,.footer-brand{font-family:"DM Sans",sans-serif;font-weight:900;letter-spacing:2px;color:var(--lime);text-shadow:0 0 16px #d7ff5444}
+.topbar nav{font-weight:800;color:#ffe0f1}
+.nav-cta{border:2px solid var(--hot);background:#ff4fa31c;color:#fff;font-weight:900;border-radius:999px}
+.hero{background:radial-gradient(ellipse at 75% 40%,#8c167a99,transparent 42%),radial-gradient(ellipse at 15% 85%,#51218b88,transparent 38%),linear-gradient(120deg,#18091f,#29102f 60%,#100817)}
+.hero:before,.hero:after{border-color:#ff4fa344}
+.eyebrow{color:var(--lime);font-weight:900}
+.hero h1{font-family:"DM Sans",sans-serif;font-weight:1000;letter-spacing:-4px;text-transform:uppercase;font-size:clamp(48px,6.5vw,84px);line-height:.98;text-shadow:4px 4px 0 #7d1b6a}
+.hero h1 em,.section-heading h2 em,.result-head h2 em,.about-section h2 em{color:var(--lime);font-style:normal}
+.hero-sub{font-family:"DM Sans",sans-serif;font-weight:900;color:#fff;font-size:clamp(20px,2.5vw,29px)}
+.hero-sub strong{color:var(--lime)}
+.hero-description{color:#f4d9ef;font-weight:600}
+.button-gold{background:linear-gradient(110deg,#ff4fa3,#ff8bcb);color:#260a23;font-weight:1000;border:2px solid #ffd7ed;border-radius:999px;box-shadow:0 7px 0 #8d205e,0 14px 30px #ff4fa344}
+.button-outline{border:2px solid var(--lime);border-radius:999px;color:var(--lime)}
+.hero-note{color:#f8a9d5;font-weight:900}
+.hero-card{background:linear-gradient(145deg,#6e1b76,#21102f 65%);border:2px solid var(--lime);box-shadow:0 20px 60px #0009,0 0 0 7px #ff4fa333;transform:rotate(5deg)}
+.hero-card:before{border:1px dashed #ff8ac8}
+.hc-top,.hc-bottom{color:var(--lime);font-weight:900}
+.hc-caption{font-family:"DM Sans",sans-serif;color:#fff;font-weight:1000}
+.art-stamp{background:var(--lime);color:#250d2c;border:3px solid #fff;border-radius:50%;font-weight:1000;box-shadow:0 0 0 5px #ff4fa366}
+.hero-bottom{color:var(--lime);border-color:#ff4fa366;font-weight:900}
+.intro-strip{background:linear-gradient(90deg,#ff4fa3,#7b35c9,#ff4fa3);color:#fff;border-color:#ffb8dc}
+.intro-strip p{font-family:"DM Sans",sans-serif;font-weight:1000;font-style:normal;text-transform:uppercase;letter-spacing:.5px}
+.reading-section{background:linear-gradient(180deg,#1c0c26,#120817)}
+.section-heading h2,.result-head h2,.about-section h2{font-family:"DM Sans",sans-serif;font-weight:1000;letter-spacing:-2px;text-transform:uppercase}
+.section-heading>p:last-child{color:#f0cce8;font-weight:600}
+.category{background:#25102f;border:2px solid #713c7a;border-radius:15px;color:#fff}
+.category:hover,.category.active{border-color:var(--lime);background:linear-gradient(130deg,#57205f,#32103e);box-shadow:0 0 0 3px #d7ff5422,inset 0 -4px var(--hot)}
+.category b{font-family:"DM Sans",sans-serif;font-weight:1000;color:#fff}
+.category small{color:#ffc5e7;font-weight:700}
+.cat-icon{color:var(--lime)}
+.profile-box,.question-box,.reading-stage,.results{border:2px solid #ff4fa377;border-radius:18px;background:linear-gradient(145deg,#291035,#170a20);box-shadow:0 15px 40px #0004}
+.profile-badge{color:var(--lime)}
+.question-box input{border:2px solid #854b8e;border-radius:10px;background:#100716}
+.stage-top h3{font-family:"DM Sans",sans-serif;font-weight:1000;color:#fff}
+.stage-instruction{color:#ffd4ec;font-weight:700}
+.tarot-card{border:2px solid var(--lime);border-radius:9px;background:#281036}
+.tarot-card:before{border:1px solid #ff4fa3;background:radial-gradient(circle,#762b83,#21102d);color:var(--lime);border-radius:5px}
+.selected-slot{border-color:#ff4fa366;color:#f7bfe1}
+.selected-slot b{font-family:"DM Sans",sans-serif;font-weight:900;color:var(--lime)}
+.result-card{border:2px solid #ff4fa377;border-radius:15px;background:#170a20}
+.result-card h3{font-family:"DM Sans",sans-serif;font-weight:1000;color:var(--lime)}
+.meme-caption{color:#ff83c0;font-weight:900;font-size:12px}
+.meaning-label{color:var(--lime);font-weight:1000}
+.result-card p{color:#ffe3f3;font-weight:500;font-size:12px}
+.summary-box{border:2px solid var(--lime);border-radius:16px;background:linear-gradient(130deg,#4d1554,#24102f)}
+.summary-kicker{color:var(--lime);font-weight:1000}
+.summary-box h3{font-family:"DM Sans",sans-serif;font-weight:1000;color:#fff}
+.summary-box p{color:#ffe1f2;font-weight:600}
+.deck-section{background:#160a20}
+.mini-card{border:2px solid #ff4fa366;border-radius:12px;background:linear-gradient(150deg,#43144e,#180a22)}
+.mini-card b{font-family:"DM Sans",sans-serif;font-weight:900;color:#fff}
+.mini-card small{color:#d7ff54;font-weight:700}
+.about-section{background:radial-gradient(ellipse at 18% 50%,#65206b,transparent 40%),#1b0d25;border-color:#ff4fa366}
+.about-section p:not(.eyebrow){color:#f7d8ec;font-weight:500}
+footer{background:#0d0612;border-top:2px solid #ff4fa355}
+footer p{color:#f6c4e2;font-family:"DM Sans",sans-serif;font-weight:700}
+footer strong{color:var(--lime);font-family:"DM Sans",sans-serif;font-weight:1000}
+@media(max-width:620px){.hero h1{font-size:clamp(43px,12vw,64px);letter-spacing:-2px}.intro-strip p{font-size:14px}.category{border-radius:12px}.result-card p{font-size:11px}}
