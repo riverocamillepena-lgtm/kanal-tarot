@@ -158,7 +158,7 @@ function renderResults(){
  const status=document.createElement("p");
  status.className="reveal-status";
  status.setAttribute("role","status");
- status.textContent="Unang baraha muna. Pagkatapos nito, 50 seconds ang pagitan bago ang kasunod. Huminga ka muna, mhie. 😂";
+ status.textContent="Unang baraha muna. Pagkatapos nito, 5 seconds ang pagitan bago ang kasunod. Huminga ka muna, mhie. 😂";
  host.append(status);
  const revealOne=(i)=>{
   const card=picked[i];
@@ -169,8 +169,8 @@ function renderResults(){
   host.insertBefore(article,status);
   requestAnimationFrame(()=>{article.classList.remove("reveal-pending");article.classList.add("reveal-in");});
   if(i<2){
-   status.textContent=`Card ${i+1} of 3 revealed. Susunod na baraha in 50 seconds… wag magmadali, hindi 'to Shopee checkout. ⏳`;
-   revealTimers.push(setTimeout(()=>revealOne(i+1),50000));
+   status.textContent=`Card ${i+1} of 3 revealed. Susunod na baraha in 5 seconds… wag magmadali, hindi 'to Shopee checkout. ⏳`;
+   revealTimers.push(setTimeout(()=>revealOne(i+1),5000));
   }else{
    status.textContent="Kompleto na ang tatlong baraha. O ayan, lumabas na ang buong kalat. 😂";
    const summary='ETO ANG RESIBO NG TATLONG BARAHANG BINUNOT MO: '+picked.map((c,i)=>positions[i]+': '+c.name+' — '+c.essence).join(' | ')+' FINAL WORD: '+picked[2].guidance;
