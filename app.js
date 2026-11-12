@@ -28,14 +28,29 @@ shuffleBtn.addEventListener("click",()=>{fan.querySelectorAll(".tarot-card").for
 category.forEach(btn=>btn.addEventListener("click",()=>{category.forEach(x=>x.classList.remove("active"));btn.classList.add("active");chosenCategory=btn.dataset.category;}));
 function buildInterpretation(card,index,cat){
  const info=categoryInfo[cat],position=info[["past","present","future"][index]];
- const categoryLines={
- love:["Past love life mo: may lesson na sana natutunan mo na bago pa nagkaroon ng sequel. Balikan ang pattern, hindi ang ex.","Present love life: kilig is free, consistency ang premium subscription. Tingnan ang actions, hindi ang online status.","Future love life: may chance sa mas maayos na connection. Hindi mo kailangang mag-audition para sa role na dapat kusang ibigay."],
- career:["Career backstory: may skills kang naipon kahit minsan feeling mo extra ka lang sa office sitcom.","Work ngayon: maraming ganap, pero hindi lahat urgent. Hindi ka printer na kailangang laging online.","Career ahead: may opportunity kung kikilos ka. Update CV muna bago mag-manifest ng CEO era."],
- general:["Past chapter: character development ang tawag dito, hindi free trial ng stress. May natutunan ka kahit ayaw mo sa episode.","Present energy: check mo kung pagod ka ba o bored lang. Magkaiba ang kailangan nilang remedy.","Future: hindi man instant ang plot twist, may progress kung tuloy-tuloy ang small moves."],
- chismis:["Backstory: may history ang ganap, pero huwag gawing fact ang sabi-sabi ng kapitbahay.","Current chika: observe muna. Hindi lahat ng cryptic post ay tungkol sa'yo—main character ka, pero may ibang cast din.","Next episode: may puwedeng luminaw. Hintayin ang resibo bago mag-drop ng exposé."]
+ const meaning=String(card.meaning||"").trim();
+ const essence=String(card.essence||"").trim();
+ const guidance=String(card.guidance||"").trim();
+ const name=card.name||"This card";
+ const suit=card.suit||"";
+ const rank=card.rank||"";
+ const positionLens={
+  past:{love:"Sa love story mo, tingnan kung anong pattern o lesson ang galing sa nakaraan.",career:"Sa career mo, balikan kung anong experience ang humubog sa paraan mo ng pagtatrabaho.",general:"Sa buhay mo, ito ang dating pattern o pangyayaring nagdala sa iyo rito.",chismis:"Sa backstory ng ganap, hanapin ang pinagmulan bago maniwala sa version ng bawat marites."},
+  present:{love:"Sa kasalukuyang relasyon o dating life, obserbahan kung tugma ang salita at kilos.",career:"Sa trabaho at pera ngayon, tingnan kung paano mo hinahandle ang responsibility at opportunity.",general:"Sa present situation, ito ang energy o lesson na kailangan mong harapin ngayon.",chismis:"Sa kasalukuyang chika, ihiwalay ang nakikita mong facts sa assumptions at haka-haka."},
+  future:{love:"Sa susunod na kabanata ng love life, ito ang direksyong puwedeng mabuo kung magpapatuloy ang kasalukuyang pattern.",career:"Sa career path, ito ang posibleng resulta kapag sinabayan mo ng consistent na action ang sitwasyon.",general:"Sa susunod na phase, ito ang posibilidad na mabubuksan ng mga desisyon mo ngayon.",chismis:"Sa next episode, ito ang puwedeng lumitaw—pero hintayin muna ang resibo bago mag-conclude."}
  };
- const meaningLabels={love:"Love life, bes",career:"Trabaho at adulting",general:"Life update",chismis:"Chika check"};
- return {position,categoryLine:categoryLines[cat][index],interpretation:card.essence+" "+categoryLines[cat][index],advice:card.guidance,meaning:card.meaning};
+ const lens=positionLens[["past","present","future"][index]][cat];
+ const suitLens={
+  Wands:"May kinalaman ito sa drive, passion, creativity, at kung saan mo inilalagay ang energy mo.",
+  Cups:"May kinalaman ito sa feelings, emotional needs, connection, at kung paano ka tumutugon sa puso mo.",
+  Swords:"May kinalaman ito sa isip, komunikasyon, katotohanan, at mga desisyong kailangang linawin.",
+  Pentacles:"May kinalaman ito sa pera, trabaho, stability, routine, at mga bagay na pinapatatag mo."
+ };
+ const cardContext=suit?suitLens[suit]||"": "";
+ const rankContext=rank==="Ace"?"Bagong simula ang diin ng baraha.":rank==="Two"?"May pagpili o dalawang direksyong kailangang timbangin.":rank==="Three"?"May pag-unlad o resulta na nagsisimula nang makita.":rank==="Four"?"Stability at pundasyon ang sinusubok.":rank==="Five"?"May hamon o friction na kailangang harapin.":rank==="Six"?"May adjustment, tulong, o pag-usad matapos ang challenge.":rank==="Seven"?"Kailangan ng patience at pag-assess kung sulit ang effort.":rank==="Eight"?"Consistency, practice, at aktuwal na pagkilos ang susi.":rank==="Nine"?"Malapit na sa milestone, pero kailangan pa ring alagaan ang sarili.":rank==="Ten"?"Umaabot sa completion o peak ang isang cycle.":rank==="Page"?"Curiosity at pagiging handang matuto ang kailangan.":rank==="Knight"?"Action at commitment ang sinusukat.":rank==="Queen"?"Maturity at maingat na paghawak sa sitwasyon ang diin.":rank==="King"?"Leadership, accountability, at mastery ang hamon.":"";
+ const interpretation=[lens,essence,cardContext,rankContext].filter(Boolean).join(" ");
+ const advice=guidance||"Huminto sandali, tingnan ang buong sitwasyon, at pumili ng hakbang na kaya mong panindigan.";
+ return {position,categoryLine:lens,interpretation,advice,meaning};
 }
 function renderResults(){const info=categoryInfo[chosenCategory];document.querySelector("#result-category").textContent=info.label+" · "+info.tone;document.querySelector("#result-cards").innerHTML=picked.map((card,i)=>{const r=buildInterpretation(card,i,chosenCategory);return `<article class="result-card"><div class="result-position">${positions[i]}</div><div class="result-art">${artSvg(card)}</div><div><h3>${card.name}</h3><div class="meme-caption">“${card.caption}”</div></div><div class="meaning-label">Tarot meaning, with konting kalat</div><p>${r.meaning}</p><div class="meaning-label">Ang chika ng baraha</div><p>${r.interpretation}</p><div class="meaning-label">Gawin mo 'to, beh</div><p>${r.advice}</p></article>`;}).join("");
 const summary=`ANG MARITES REPORT: ${picked[0].name} ang backstory; ${picked[1].name} ang current ganap; ${picked[2].name} ang possible next episode. ${picked[1].guidance} ${chosenCategory==="chismis"?"Reminder: chika pa lang ito, hindi sworn affidavit. Verify bago magkalat.":"Take the advice, leave the drama. Ikaw pa rin ang director ng buhay mo, bes."}`;
