@@ -11,7 +11,7 @@ const positions=["PAST · PINANGGALINGAN","PRESENT · KASALUKUYAN","FUTURE · SU
 const category=document.querySelectorAll(".category");
 const fan=document.querySelector("#card-fan"),selectedRow=document.querySelector("#selected-row"),count=document.querySelector("#pick-count");
 const reveal=document.querySelector("#reveal-btn"),shuffleBtn=document.querySelector("#shuffle-btn");
-let chosenCategory="love",deck=[],picked=[],lastReading=null;
+let chosenCategory="love",deck=[],picked=[],lastReading=null,revealTimers=[];
 const shuffle=(arr)=>{const a=[...arr];for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;};
 function artSvg(card){
  const esc=s=>String(s||"").replace(/[&<>"']/g,x=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[x]));
@@ -20,7 +20,7 @@ function artSvg(card){
  }
  return '<div class="tarot-illustration"><span>'+esc(card.emoji||"🔮")+'</span></div>';
 }
-function makeDeck(){deck=shuffle([...CARDS]);picked=[];renderFan();renderSlots();document.querySelector("#results").hidden=true;reveal.disabled=true;count.textContent="0 / 3 selected";document.querySelector("#stage-instruction").textContent="Take a breath, bes. Tap a card and choose three—trust the chismis of the cosmos."; }
+function makeDeck(){revealTimers.forEach(clearTimeout);revealTimers=[];deck=shuffle([...CARDS]);picked=[];renderFan();renderSlots();document.querySelector("#results").hidden=true;reveal.disabled=true;count.textContent="0 / 3 selected";document.querySelector("#stage-instruction").textContent="Take a breath, bes. Tap a card and choose three—trust the chismis of the cosmos."; }
 function renderFan(){fan.innerHTML="";deck.forEach((card,index)=>{const b=document.createElement("button");b.className="tarot-card";b.type="button";b.setAttribute("aria-label",`Face-down tarot card ${index+1}`);b.dataset.index=index;b.addEventListener("click",()=>pickCard(card,b));fan.append(b);});}
 function pickCard(card,button){if(picked.length>=3||picked.some(c=>c.id===card.id))return;picked.push(card);button.classList.add("picked");button.disabled=true;button.setAttribute("aria-label",`${card.name} selected`);renderSlots();count.textContent=`${picked.length} / 3 selected`;reveal.disabled=picked.length!==3;if(picked.length===3)document.querySelector("#stage-instruction").textContent="Three cards selected. The universe has entered the group chat."; }
 function renderSlots(){selectedRow.innerHTML=positions.map((p,i)=>`<div class="selected-slot">${p}<b>${picked[i]?picked[i].name:"Awaiting your pick…"}</b></div>`).join("");}
@@ -142,12 +142,45 @@ function profileReadingNote(profile,cat,index){
  if(profile.age!==null){const band=profile.age<20?"early-life choices and learning":profile.age<30?"exploration, identity, and building foundations":profile.age<40?"priorities, growth, and sustainable commitments":profile.age<50?"reassessment, stability, and meaningful change":"experience, perspective, and what deserves your energy";parts.push("Life-stage lens: "+band+".");}
  return parts.length?"Personal lens — "+parts.join(" "):"";
 }
-function renderResults(){const info=categoryInfo[chosenCategory];const readerProfile=getReadingProfile();document.querySelector("#result-category").textContent=info.label+" · "+info.tone;document.querySelector("#result-cards").innerHTML=picked.map((card,i)=>{const r=buildInterpretation(card,i,chosenCategory);return `<article class="result-card reveal-pending"><div class="result-position">${positions[i]}</div><div class="result-art">${artSvg(card)}</div><div><h3>${r.title}</h3><div class="actual-card-name">${card.name}</div><div class="meme-caption">“${r.savage}”</div></div><div class="meaning-label">ANO’NG KALAT ANG DALA NITO?</div><p>${r.meaning}</p><div class="meaning-label">MGA MARE, ETO ANG CHIKA</div><p>${r.interpretation}</p><div class="meaning-label">SAMPAL NG REALIDAD, WITH LOVE</div><p>${r.advice}</p></article>`;}).join("");
-const summary='MGA ACCLA, ITO ANG GROUP CHAT RECAP! Una, '+picked[0].name+' ang naglabas ng lumang ganap: '+picked[0].essence+' Sunod, si '+picked[1].name+' ang naglatag ng current issue: '+picked[1].essence+' At ang huling pasabog ay si '+picked[2].name+': '+picked[2].essence+' FINAL VERDICT, MGA BEH: '+picked[2].guidance+' Hindi ito utos ng universe—ikaw pa rin ang may hawak ng manibela. Pero jusko, huwag mong sabihing walang warning.';
-document.querySelector("#summary-text").textContent=summary;document.querySelector("#profile-reading-note").textContent=profileReadingNote(readerProfile,chosenCategory,1);
-const q=document.querySelector("#question").value.trim();document.querySelector("#question-echo").textContent=q?`Tanong mo: “${q}” — eto ang baraha’s two cents. Hindi ito court ruling, bes.`:"Disclaimer: tarot lang ito, hindi memo from the universe. Ikaw pa rin ang may final say.";
-lastReading={category:info.label,cards:picked.map((c,i)=>({name:c.name,position:positions[i],caption:c.caption,meaning:c.meaning,interpretation:buildInterpretation(c,i,chosenCategory).interpretation,advice:c.guidance})),summary,question:q};
-document.querySelector("#results").hidden=false;[...document.querySelectorAll("#result-cards .result-card")].forEach((el,i)=>setTimeout(()=>{el.classList.remove("reveal-pending");el.classList.add("reveal-in");},matchMedia("(prefers-reduced-motion: reduce)").matches?0:650+i*1050));document.querySelector("#results").scrollIntoView({behavior:matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth",block:"start"});}
+function renderResults(){
+ revealTimers.forEach(clearTimeout);revealTimers=[];
+ const info=categoryInfo[chosenCategory];
+ const readerProfile=getReadingProfile();
+ document.querySelector("#result-category").textContent=info.label+" · "+info.tone;
+ const host=document.querySelector("#result-cards");
+ host.innerHTML="";
+ document.querySelector("#summary-text").textContent="";
+ document.querySelector("#profile-reading-note").textContent=profileReadingNote(readerProfile,chosenCategory,1);
+ const q=document.querySelector("#question").value.trim();
+ document.querySelector("#question-echo").textContent=q?`Tanong mo: “${q}” — eto ang baraha’s two cents. Hindi ito court ruling, bes.`:"Disclaimer: tarot lang ito, hindi memo from the universe. Ikaw pa rin ang may final say.";
+ lastReading=null;
+ const status=document.createElement("p");
+ status.className="reveal-status";
+ status.setAttribute("role","status");
+ status.textContent="Unang baraha muna. Pagkatapos nito, 50 seconds ang pagitan bago ang kasunod. Huminga ka muna, mhie. 😂";
+ host.append(status);
+ const revealOne=(i)=>{
+  const card=picked[i];
+  const r=buildInterpretation(card,i,chosenCategory);
+  const article=document.createElement("article");
+  article.className="result-card reveal-pending";
+  article.innerHTML=`<div class="result-position">${esc(positions[i])}</div><div class="result-art">${artSvg(card)}</div><div><h3>${esc(r.title)}</h3><div class="actual-card-name">${esc(card.name)}</div><div class="meme-caption">“${esc(r.savage)}”</div></div><div class="meaning-label">ANO’NG KALAT ANG DALA NITO?</div><p>${esc(r.interpretation)}</p><div class="meaning-label">SAMPAL NG REALIDAD, WITH LOVE</div><p>${esc(r.advice)}</p>`;
+  host.insertBefore(article,status);
+  requestAnimationFrame(()=>{article.classList.remove("reveal-pending");article.classList.add("reveal-in");});
+  if(i<2){
+   status.textContent=`Card ${i+1} of 3 revealed. Susunod na baraha in 50 seconds… wag magmadali, hindi 'to Shopee checkout. ⏳`;
+   revealTimers.push(setTimeout(()=>revealOne(i+1),50000));
+  }else{
+   status.textContent="Kompleto na ang tatlong baraha. O ayan, lumabas na ang buong kalat. 😂";
+   const summary='ETO ANG RESIBO NG TATLONG BARAHANG BINUNOT MO: '+picked.map((c,i)=>positions[i]+': '+c.name+' — '+c.essence).join(' | ')+' FINAL WORD: '+picked[2].guidance;
+   document.querySelector("#summary-text").textContent=summary;
+   lastReading={category:info.label,cards:picked.map((c,i)=>({name:c.name,position:positions[i],caption:c.caption,meaning:c.meaning,interpretation:buildInterpretation(c,i,chosenCategory).interpretation,advice:c.guidance})),summary,question:q};
+  }
+ };
+ revealOne(0);
+ document.querySelector("#results").hidden=false;
+ document.querySelector("#results").scrollIntoView({behavior:matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth",block:"start"});
+}
 reveal.addEventListener("click",renderResults);
 document.querySelector("#new-reading-btn").addEventListener("click",()=>{makeDeck();document.querySelector("#question").value="";document.querySelector("#read").scrollIntoView({behavior:"smooth"});});
 document.querySelector("#share-btn").addEventListener("click",async()=>{if(!lastReading)return;const text=`KANAL TAROT 🔮\n${lastReading.category}\n${lastReading.cards.map(c=>`${c.position}: ${c.name} — “${c.caption}”`).join("\n")}\n\n${lastReading.summary}\n\nAng sagot ay nasa Baraha bes. ✦`;try{if(navigator.share)await navigator.share({title:"My KANAL TAROT reading",text});else{await navigator.clipboard.writeText(text);document.querySelector("#share-status").textContent="Reading copied, bes! Paste it sa group chat. ✨";}}catch(e){if(e.name!=="AbortError")document.querySelector("#share-status").textContent="Sharing isn't available here—try copying the reading text."; }});
