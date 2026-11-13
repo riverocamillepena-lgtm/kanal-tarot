@@ -27,16 +27,14 @@
 <button class="category" data-category="general"><span class="cat-icon">☾</span><span><b>Life Chika</b><small>Anong ganap sa buhay mo, accla?</small></span><i>↗</i></button>
 <button class="category" data-category="chismis"><span class="cat-icon">👁</span><span><b>Chismis Central</b><small>Resibo muna bago kalat!</small></span><i>↗</i></button>
 </div>
-<div class="question-box"><label for="question">May specific question ka? <span>OPTIONAL</span></label><input id="question" maxlength="180" placeholder="e.g. Worth it pa bang i-push ang connection na 'to?"><p>Keep it general—no need to share private or identifying details.</p></div>
+
 <div class="reading-stage">
-<div class="stage-top"><div><p class="eyebrow">02 / SHUFFLE THE DECK</p><h3>Pick your <em>three baraha.</em></h3></div><div class="deck-count"><b>78</b><span>FULL TAROT DECK</span></div></div>
-<p class="stage-instruction" id="stage-instruction">Take a breath, bes. Tap SHUFFLE, then choose three cards—trust the chismis of the cosmos.</p>
-<div class="shuffle-row"><button class="button button-outline" id="shuffle-btn">⟳ Shuffle the deck</button><span id="pick-count" aria-live="polite">0 / 3 selected</span></div>
-<div class="card-fan" id="card-fan" aria-label="Face-down tarot cards"></div>
-<div class="position-labels"><span>01 · PAST</span><span>02 · PRESENT</span><span>03 · NEXT DIRECTION</span></div>
-<div class="selected-row" id="selected-row" aria-live="polite"></div>
-<div class="reveal-row"><button class="button button-gold" id="reveal-btn" disabled>Reveal my reading <span>✦</span></button></div>
-<p class="tiny-note">The deck is reshuffled for every new reading. No duplicate cards, promise ni universe.</p>
+<div class="stage-top"><div><p class="eyebrow">02 / YOUR CARDS ARE READY</p><h3>Let the universe <em>choose.</em></h3></div><div class="deck-count"><b>78</b><span>FULL TAROT DECK</span></div></div>
+<p class="stage-instruction" id="stage-instruction">Pumili ka lang ng aspect, bes. Kami na ang bahala sa shuffle at bunot. Isang pindot lang!</p>
+
+
+<div class="reveal-row"><button class="button button-gold" id="reveal-btn">REVEAL MY READING <span>✦</span></button></div>
+<p class="tiny-note">Three unique cards are drawn automatically for every reading. Walang duplicate, promise ni universe.</p>
 </div>
 <div class="results" id="results" hidden aria-live="polite"><div class="result-head"><p class="eyebrow">03 / THE UNIVERSE HAS SPOKEN</p><h2>Your cosmic <em>chika.</em></h2><p id="result-category"></p></div><div id="result-cards" class="result-cards"></div><div class="summary-box"><span class="summary-kicker">ANG MARITES REPORT · EXCLUSIVE CHIKA</span><h3>O eto na ang resibo, mga accla!</h3><p id="summary-text"></p><div class="question-echo" id="question-echo"></div></div><div class="result-actions"><button class="button button-gold" id="share-btn">Share my reading ↗</button><button class="button button-outline" id="new-reading-btn">Start a new reading ⟳</button></div><p class="share-status" id="share-status" role="status"></p></div>
 </section>
