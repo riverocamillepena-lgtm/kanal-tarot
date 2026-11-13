@@ -50,12 +50,34 @@ general:{
 }
 };
 function buildInterpretation(card,index,cat){
- const title=card.charotName||card.caption||"ANG GANAP";
- const bank=categoryJokes[cat]||categoryJokes.general;
- const id=Math.abs(Number(card.id)||0);
- const interpretation="Ang chika ng "+title+": "+bank.scene[id%9]+" "+bank.twist[Math.floor(id/9)%9];
- const advice=bank.resbak[id%9];
- return {position:positions[index],categoryLine:categoryInfo[cat]?.label||"",interpretation,advice,meaning:"",title,savage:""};
+ const title=card.charotName||card.caption||card.name||"ANG GANAP";
+ const categoryInfoText={
+  love:"Sa love life at connections mo",
+  career:"Sa trabaho, pera, at mga pangarap mo",
+  chismis:"Sa mga sikreto, social circle, at tea sa paligid mo",
+  general:"Sa everyday life, choices, at personal ganap mo"
+ };
+ const categoryOpeners={
+  love:"Pagdating sa puso, hindi sapat ang kilig kung ikaw lang ang may ambag.",
+  career:"Sa career department, hindi ka empleyado ng buong mundo. May limit ang free labor, bes.",
+  chismis:"Sa chismis department, facts muna bago fan fiction. Hindi lahat ng hinala ay scoop.",
+  general:"Sa general life, hindi kailangang sabay-sabay ayusin ang lahat. Hindi ka 24/7 convenience store."
+ };
+ const oneLiner=card.oneLiner||card.essence||"May ganap na kailangang tingnan nang mas malinaw.";
+ const essence=card.essence||card.meaning||"May bagong anggulo kang puwedeng pag-isipan.";
+ const guidance=card.guidance||"Huminga, mag-fact-check, at piliin ang hakbang na kaya mong panindigan.";
+ const categoryLabel=categoryInfoText[cat]||categoryInfoText.general;
+ const opener=categoryOpeners[cat]||categoryOpeners.general;
+ const interpretation=opener+" "+categoryLabel+": "+oneLiner+" "+essence;
+ return {
+  position:positions[index],
+  categoryLine:categoryInfo[cat]?.label||"Life Chika",
+  interpretation,
+  advice:guidance,
+  meaning:card.meaning||"",
+  title,
+  savage:oneLiner
+ };
 }
 function renderResults(){
  reveal.disabled=true;
