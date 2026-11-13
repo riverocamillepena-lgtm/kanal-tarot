@@ -33,8 +33,9 @@ let chosenCategory="love",deck=[],picked=[],lastReading=null,revealTimers=[];
 const shuffle=(arr)=>{const a=[...arr];for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;};
 const esc=s=>String(s??"").replace(/[&<>"']/g,x=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[x]));
 function artSvg(card){
- const face=pinoyFaceForCard(card),src=PINOY_FACE_IMAGES[face]||PINOY_FACE_IMAGES.surprised;
- return '<div class="tarot-illustration meme-photo pinoy-meme-face"><img src="'+src+'" alt="'+esc(card.name)+' Pinoy meme face" loading="lazy" onerror="this.onerror=null;this.src=\'assets/memes/gagi.jpeg\'"></div>';
+ const src=card.image||PINOY_FACE_IMAGES[pinoyFaceForCard(card)]||PINOY_FACE_IMAGES.surprised;
+ const fallback=PINOY_FACE_IMAGES[pinoyFaceForCard(card)]||PINOY_FACE_IMAGES.surprised;
+ return '<div class="tarot-illustration meme-photo pinoy-meme-face"><img src="'+esc(src)+'" alt="'+esc(card.name)+' Pinoy meme face" loading="lazy" onerror="this.onerror=null;this.src=\''+fallback+'\'"></div>';
 }
 function makeDeck(){revealTimers.forEach(clearTimeout);revealTimers=[];deck=shuffle([...CARDS]);picked=deck.slice(0,3);document.querySelector("#results").hidden=true;reveal.disabled=false;document.querySelector("#stage-instruction").textContent="Tatlong baraha ang automatic nang nabunot para sa’yo. Piliin ang aspect at pindutin ang REVEAL MY READING!"; }
 function renderFan(){fan.innerHTML="";deck.forEach((card,index)=>{const b=document.createElement("button");b.className="tarot-card";b.type="button";b.setAttribute("aria-label",`Face-down tarot card ${index+1}`);b.dataset.index=index;b.addEventListener("click",()=>pickCard(card,b));fan.append(b);});}
