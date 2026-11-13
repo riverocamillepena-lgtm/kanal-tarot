@@ -51,24 +51,18 @@ general:{
 };
 function buildInterpretation(card,index,cat){
  const title=card.charotName||card.caption||card.name||"ANG GANAP";
- const categoryInfoText={
-  love:"Sa love life at connections mo",
-  career:"Sa trabaho, pera, at mga pangarap mo",
-  chismis:"Sa mga sikreto, social circle, at tea sa paligid mo",
-  general:"Sa everyday life, choices, at personal ganap mo"
- };
- const categoryOpeners={
-  love:"Pagdating sa puso, hindi sapat ang kilig kung ikaw lang ang may ambag.",
-  career:"Sa career department, hindi ka empleyado ng buong mundo. May limit ang free labor, bes.",
-  chismis:"Sa chismis department, facts muna bago fan fiction. Hindi lahat ng hinala ay scoop.",
-  general:"Sa general life, hindi kailangang sabay-sabay ayusin ang lahat. Hindi ka 24/7 convenience store."
- };
- const oneLiner=card.oneLiner||card.essence||"May ganap na kailangang tingnan nang mas malinaw.";
+ const oneLiner=card.oneLiner||"May ganap na kailangang tingnan nang mas malinaw.";
  const essence=card.essence||card.meaning||"May bagong anggulo kang puwedeng pag-isipan.";
  const guidance=card.guidance||"Huminga, mag-fact-check, at piliin ang hakbang na kaya mong panindigan.";
- const categoryLabel=categoryInfoText[cat]||categoryInfoText.general;
- const opener=categoryOpeners[cat]||categoryOpeners.general;
- const interpretation=opener+" "+categoryLabel+": "+oneLiner+" "+essence;
+ const categoryLabels={
+  love:"LOVE LIFE: eto ang resibo sa puso at connections mo.",
+  career:"CAREER: eto ang ganap sa trabaho, pera, at ambitions mo.",
+  chismis:"CHISMIS: eto ang tea sa social circle at mga taong nakapaligid sa'yo.",
+  general:"GENERAL LIFE: eto ang plot ng everyday life at personal choices mo."
+ };
+ // Keep each card's own meme punchline and interpretation as the main reading.
+ // Avoid repeating a generic category speech before every card.
+ const interpretation=oneLiner+" "+essence;
  return {
   position:positions[index],
   categoryLine:categoryInfo[cat]?.label||"Life Chika",
