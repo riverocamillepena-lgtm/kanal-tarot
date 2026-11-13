@@ -9,8 +9,7 @@ const categoryInfo={
 };
 const positions=["NOON PA ANG KALAT","ITO ANG GANAP NGAYON","NEXT EPISODE: ABANGAN"];
 const category=document.querySelectorAll(".category");
-const fan=document.querySelector("#card-fan"),selectedRow=document.querySelector("#selected-row"),count=document.querySelector("#pick-count");
-const reveal=document.querySelector("#reveal-btn"),shuffleBtn=document.querySelector("#shuffle-btn");
+const reveal=document.querySelector("#reveal-btn");
 let chosenCategory="love",deck=[],picked=[],lastReading=null,revealTimers=[];
 const shuffle=(arr)=>{const a=[...arr];for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;};
 const esc=s=>String(s??"").replace(/[&<>"']/g,x=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[x]));
@@ -21,12 +20,11 @@ function artSvg(card){
  }
  return '<div class="tarot-illustration"><span>'+esc(card.emoji||"🔮")+'</span></div>';
 }
-function makeDeck(){revealTimers.forEach(clearTimeout);revealTimers=[];deck=shuffle([...CARDS]);picked=[];renderFan();renderSlots();document.querySelector("#results").hidden=true;reveal.disabled=true;count.textContent="0 / 3 selected";document.querySelector("#stage-instruction").textContent="Take a breath, bes. Tap a card and choose three—trust the chismis of the cosmos."; }
+function makeDeck(){revealTimers.forEach(clearTimeout);revealTimers=[];deck=shuffle([...CARDS]);picked=deck.slice(0,3);document.querySelector("#results").hidden=true;reveal.disabled=false;document.querySelector("#stage-instruction").textContent="Tatlong baraha ang automatic nang nabunot para sa’yo. Piliin ang aspect at pindutin ang REVEAL MY READING!"; }
 function renderFan(){fan.innerHTML="";deck.forEach((card,index)=>{const b=document.createElement("button");b.className="tarot-card";b.type="button";b.setAttribute("aria-label",`Face-down tarot card ${index+1}`);b.dataset.index=index;b.addEventListener("click",()=>pickCard(card,b));fan.append(b);});}
 function pickCard(card,button){if(picked.length>=3||picked.some(c=>c.id===card.id))return;picked.push(card);button.classList.add("picked");button.disabled=true;button.setAttribute("aria-label",`${card.name} selected`);renderSlots();count.textContent=`${picked.length} / 3 selected`;reveal.disabled=picked.length!==3;if(picked.length===3)document.querySelector("#stage-instruction").textContent="Tatlong baraha na. Naka-ready na ang group chat. 😂"; }
 function renderSlots(){selectedRow.innerHTML=positions.map((p,i)=>{const card=picked[i];return card?'<div class="selected-preview"><span class="preview-position">'+esc(p)+'</span><div class="preview-card">'+artSvg(card)+'<b>'+esc(card.name)+'</b></div></div>':'<div class="selected-slot">'+esc(p)+'<b>Awaiting your pick…</b></div>';}).join("");}
-shuffleBtn.addEventListener("click",()=>{fan.querySelectorAll(".tarot-card").forEach((c,i)=>{c.classList.remove("shuffle");void c.offsetWidth;c.style.animationDelay=`${i*12}ms`;c.classList.add("shuffle");});setTimeout(makeDeck,560);});
-category.forEach(btn=>btn.addEventListener("click",()=>{category.forEach(x=>x.classList.remove("active"));btn.classList.add("active");chosenCategory=btn.dataset.category;}));
+category.forEach(btn=>btn.addEventListener("click",()=>{category.forEach(x=>x.classList.remove("active"));btn.classList.add("active");chosenCategory=btn.dataset.category;document.querySelector("#results").hidden=true;reveal.disabled=false;document.querySelector("#stage-instruction").textContent="Aspect selected: "+(categoryInfo[chosenCategory]?.label||"Life Chika")+". Pindutin ang REVEAL MY READING para sa chika mo!";}));
 const categoryJokes={
 love:{
  scene:["Nag-send ka ng 'ingat ka' tapos siya nag-reply ng thumbs up. Aba, customer service ba 'to?","May ka-talking stage kang parang loading screen: 99% na, ayaw pa ring bumukas.","Nag-story siya ng 'miss ko na' at ikaw naman nag-self nominate. Hindi ikaw ang only applicant, beh.","Ikaw ang may good morning, good night, at emotional support package. Siya? Seen-zoned premium.","May date daw kayo pero ikaw ang nagplano, nag-book, nagbayad ng reservation. Jowa o travel agency?","Nag-away kayo dahil sa tone ng chat. Isang 'k' lang, may season finale na.","May bumalik na ex. Akala mo closure, rerun pala ng basura.","May kilig sa inbox pero pag personalan na, parang multo sa mall.","Relationship status: ikaw ang nagmamahal, siya ang nagre-reply kapag walang magawa."],
@@ -85,7 +83,7 @@ function renderResults(){
  host.style.display="grid";
  host.innerHTML="";
  document.querySelector("#summary-text").textContent="";
- const q=document.querySelector("#question").value.trim();
+ const q="";
  document.querySelector("#question-echo").textContent=q?`Tanong mo: “${q}” — eto ang baraha’s two cents. Hindi ito court ruling, bes.`:"Disclaimer: tarot lang ito, hindi memo from the universe. Ikaw pa rin ang may final say.";
  lastReading=null;
  const status=document.createElement("p");
@@ -120,7 +118,7 @@ function renderResults(){
  results.scrollIntoView({behavior:matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth",block:"start"});
 }
 reveal.addEventListener("click",renderResults);
-document.querySelector("#new-reading-btn").addEventListener("click",()=>{makeDeck();document.querySelector("#question").value="";document.querySelector("#read").scrollIntoView({behavior:"smooth"});});
+document.querySelector("#new-reading-btn").addEventListener("click",()=>{makeDeck();document.querySelector("#read").scrollIntoView({behavior:"smooth"});});
 document.querySelector("#share-btn").addEventListener("click",async()=>{if(!lastReading)return;const text=`KANAL TAROT 🔮\n${lastReading.category}\n${lastReading.cards.map(c=>`${c.position}: ${c.name} — “${c.interpretation}” Resbak: ${c.advice}`).join("\n")}\n\n${lastReading.summary}\n\nAng sagot ay nasa Baraha bes. ✦`;try{if(navigator.share)await navigator.share({title:"My KANAL TAROT reading",text});else{await navigator.clipboard.writeText(text);document.querySelector("#share-status").textContent="Reading copied, bes! Paste it sa group chat. ✨";}}catch(e){if(e.name!=="AbortError")document.querySelector("#share-status").textContent="Sharing isn't available here—try copying the reading text."; }});
 document.querySelector("#deck-grid").innerHTML=CARDS.map((c,i)=>`<article class="mini-card"><span class="mini-number">${c.arcana==="Minor Arcana"?(c.suit.toUpperCase()+" · "+c.number):((c.number??i)+" · MAJOR ARCANA")}</span><div class="mini-art">${artSvg(c)}</div><b>${c.name||"Unknown card"}</b><small>${c.caption||""}</small></article>`).join("");
 const menu=document.querySelector(".menu-btn");menu.addEventListener("click",()=>{const nav=document.querySelector(".topbar");const open=nav.classList.toggle("menu-open");menu.setAttribute("aria-expanded",String(open));});
