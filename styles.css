@@ -161,3 +161,21 @@ footer strong{color:var(--lime);font-family:"DM Sans",sans-serif;font-weight:100
 .flip-front .image-credit{display:none}
 @media(max-width:900px){.deck-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}.preview-card{width:min(100%,150px)}}
 @media(max-width:620px){.deck-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.mini-card{padding:10px 8px 12px}.mini-card .mini-art .tarot-illustration>span{font-size:70px}.mini-card small{font-size:8px}.preview-card{width:min(100%,130px)}}
+
+
+/* POLAROID CELESTIAL TAROT — inspired by the uploaded reference */
+.flip-card{border:2px solid #c8a86c!important;border-radius:10px!important;background:#09080b!important;box-shadow:0 16px 34px #000b,0 0 0 4px #c5a15a22!important}
+.flip-front{position:absolute;isolation:isolate;overflow:hidden;background:radial-gradient(circle at 83% 9%,#f0d68b 0 3%,transparent 3.5%),radial-gradient(circle at 13% 13%,#b89a61 0 1px,transparent 2px),radial-gradient(circle at 90% 70%,#9d7caa 0 2%,transparent 2.5%),radial-gradient(ellipse at 50% 50%,#29202b,#09080b 76%)!important;border:0!important;outline:0!important;padding:0!important}
+.flip-front:before{content:"☼";position:absolute;top:2%;right:4%;font:clamp(28px,4vw,46px)/1 Georgia,serif;color:#d6b66d;text-shadow:0 0 12px #d6b66d66;z-index:0}
+.flip-front:after{content:"✧   ☾   ✧";position:absolute;left:0;right:0;bottom:3%;text-align:center;color:#c9aa6b;font:clamp(9px,1.2vw,13px) Georgia,serif;letter-spacing:5px;z-index:0}
+.flip-front .front-art{position:absolute!important;z-index:1;left:10%!important;right:10%!important;top:13%!important;bottom:12%!important;width:80%!important;height:75%!important;margin:0!important;padding:10px 10px 44px!important;display:flex!important;align-items:stretch!important;justify-content:stretch!important;overflow:hidden!important;background:linear-gradient(145deg,#fffefa,#e8e4dc)!important;border:1px solid #d8d2c8;border-radius:7px;box-shadow:0 10px 25px #000b;}
+.flip-front .front-art:after{content:"";position:absolute;left:10px;right:10px;top:10px;bottom:44px;border:1px solid #c9c4bb;pointer-events:none}
+.flip-front .front-art .tarot-illustration{position:relative!important;z-index:1;width:100%!important;height:100%!important;min-height:0!important;padding:0!important;background:#e7e9e8!important;overflow:hidden!important}
+.flip-front .front-art .tarot-illustration.meme-photo img{width:100%!important;height:100%!important;max-height:none!important;object-fit:cover!important;object-position:center!important}
+.flip-front .polaroid-caption{position:absolute;z-index:2;left:10%;right:10%;bottom:15%;height:7%;display:flex;align-items:center;justify-content:center;color:#29232a;font:900 clamp(9px,1.2vw,14px)/1.1 "DM Sans",sans-serif;text-align:center;text-transform:uppercase;letter-spacing:.7px;overflow:hidden}
+.mini-card{background:radial-gradient(circle at 85% 7%,#d6b66d 0 2%,transparent 2.5%),radial-gradient(ellipse at 50% 40%,#302334,#09080b 75%)!important;border:1px solid #c6a666!important;box-shadow:0 8px 22px #0008!important}
+.mini-card:before{border:1px solid #c6a66688!important}
+.mini-card .mini-art{position:relative;background:#f1eee7;border:1px solid #d6d0c5;padding:8px 8px 28px!important;box-shadow:0 5px 15px #0008}
+.mini-card .mini-art .tarot-illustration.meme-photo img{object-fit:cover!important}
+.mini-card b{color:#f5e8d0!important;text-transform:uppercase;letter-spacing:.5px}
+@media(max-width:620px){.flip-front .front-art{left:9%!important;right:9%!important;top:13%!important;bottom:12%!important;width:82%!important;padding:7px 7px 34px!important}.flip-front .front-art:after{left:7px;right:7px;top:7px;bottom:34px}.flip-front .polaroid-caption{left:9%;right:9%;bottom:15%;font-size:9px}}
